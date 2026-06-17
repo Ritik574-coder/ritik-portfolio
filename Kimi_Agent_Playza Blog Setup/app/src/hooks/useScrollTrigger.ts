@@ -25,24 +25,37 @@ export const useScrollTrigger = <T extends HTMLElement>(
 ): RefObject<T> => {
   const elementRef = useRef<T>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const {
+    trigger,
+    start = 'top 80%',
+    end = 'bottom 20%',
+    scrub = false,
+    pin = false,
+    markers = false,
+    onUpdate,
+    onEnter,
+    onLeave,
+    onEnterBack,
+    onLeaveBack,
+  } = options;
 
   useEffect(() => {
     if (!elementRef.current) return;
 
     const element = elementRef.current;
-    
+
     const st = ScrollTrigger.create({
-      trigger: options.trigger || element,
-      start: options.start || 'top 80%',
-      end: options.end || 'bottom 20%',
-      scrub: options.scrub ?? false,
-      pin: options.pin ?? false,
-      markers: options.markers ?? false,
-      onUpdate: options.onUpdate,
-      onEnter: options.onEnter,
-      onLeave: options.onLeave,
-      onEnterBack: options.onEnterBack,
-      onLeaveBack: options.onLeaveBack,
+      trigger: trigger || element,
+      start,
+      end,
+      scrub,
+      pin,
+      markers,
+      onUpdate,
+      onEnter,
+      onLeave,
+      onEnterBack,
+      onLeaveBack,
     });
 
     scrollTriggerRef.current = st;
@@ -51,7 +64,20 @@ export const useScrollTrigger = <T extends HTMLElement>(
     return () => {
       st.kill();
     };
-  }, []);
+  }, [
+    callback,
+    end,
+    markers,
+    onEnter,
+    onEnterBack,
+    onLeave,
+    onLeaveBack,
+    onUpdate,
+    pin,
+    scrub,
+    start,
+    trigger,
+  ]);
 
   return elementRef as RefObject<T>;
 };

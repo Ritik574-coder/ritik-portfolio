@@ -11,11 +11,6 @@ const ICON_MAP = {
 };
 
 const Hero = () => {
-  // Null check: if config is empty, do not render
-  if (!heroConfig.decodeText && !heroConfig.brandName && heroConfig.navItems.length === 0) {
-    return null;
-  }
-
   const heroRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -52,7 +47,7 @@ const Hero = () => {
     }, 40);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [CHARS, TARGET_TEXT]);
 
   // GSAP animations
   useEffect(() => {
@@ -81,6 +76,11 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Null check: if config is empty, do not render
+  if (!heroConfig.decodeText && !heroConfig.brandName && heroConfig.navItems.length === 0) {
+    return null;
+  }
 
   return (
     <section
