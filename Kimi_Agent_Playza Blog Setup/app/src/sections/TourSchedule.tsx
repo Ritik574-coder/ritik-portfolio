@@ -7,11 +7,6 @@ import { tourScheduleConfig } from '../config';
 gsap.registerPlugin(ScrollTrigger);
 
 const TourSchedule = () => {
-  // Null check: if config is empty, do not render
-  if (tourScheduleConfig.tourDates.length === 0 && !tourScheduleConfig.sectionTitle) {
-    return null;
-  }
-
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [activeVenue, setActiveVenue] = useState<number>(0);
@@ -68,6 +63,11 @@ const TourSchedule = () => {
   };
 
   const TOUR_DATES = tourScheduleConfig.tourDates;
+
+  // Null check: if config is empty, do not render
+  if (tourScheduleConfig.tourDates.length === 0 && !tourScheduleConfig.sectionTitle) {
+    return null;
+  }
 
   return (
     <section

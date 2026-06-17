@@ -14,11 +14,6 @@ const SOCIAL_ICON_MAP = {
 };
 
 const Footer = () => {
-  // Null check: if config is empty, do not render
-  if (!footerConfig.brandName && !footerConfig.heroTitle && footerConfig.socialLinks.length === 0) {
-    return null;
-  }
-
   const sectionRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -61,6 +56,11 @@ const Footer = () => {
       alert(footerConfig.subscribeAlertMessage);
     }
   };
+
+  // Null check: if config is empty, do not render
+  if (!footerConfig.brandName && !footerConfig.heroTitle && footerConfig.socialLinks.length === 0) {
+    return null;
+  }
 
   return (
     <section

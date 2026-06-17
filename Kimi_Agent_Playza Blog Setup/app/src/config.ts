@@ -17,6 +17,8 @@ export const siteConfig: SiteConfig = {
   language: "en",
 };
 
+const assetPath = (fileName: string) => `${import.meta.env.BASE_URL}${fileName}`;
+
 // -- Hero Section -------------------------------------------------------------
 export interface HeroNavItem {
   label: string;
@@ -40,7 +42,7 @@ export interface HeroConfig {
 }
 
 export const heroConfig: HeroConfig = {
-  backgroundImage: "/hero-bg.jpg",
+  backgroundImage: assetPath("hero-bg.jpg"),
   brandName: "RITIK KUMAR",
   decodeText: "DATA ENGINEER",
   decodeChars: "<>[]{}|/\\!@#$%^&*",
@@ -79,34 +81,34 @@ export const albumCubeConfig: AlbumCubeConfig = {
       id: 1,
       title: "DBT DATA WAREHOUSE",
       subtitle: "SQL SERVER • ETL • DBT",
-      image: "/project-dbt.jpg",
+      image: assetPath("project-dbt.jpg"),
     },
     {
       id: 2,
       title: "DATA ECOSYSTEM",
       subtitle: "LAKEHOUSE • ARCHITECTURE",
-      image: "/project-ecosystem.jpg",
+      image: assetPath("project-ecosystem.jpg"),
     },
     {
       id: 3,
       title: "PYTHON MASTERY",
       subtitle: "FOUNDATIONS • ADVANCED",
-      image: "/project-python.jpg",
+      image: assetPath("project-python.jpg"),
     },
     {
       id: 4,
       title: "SQL SERVER",
       subtitle: "DATABASE • QUERY OPTIMIZATION",
-      image: "/project-sql.jpg",
+      image: assetPath("project-sql.jpg"),
     },
   ],
   cubeTextures: [
-    "/cube-1.jpg",
-    "/cube-2.jpg",
-    "/cube-3.jpg",
-    "/cube-4.jpg",
-    "/cube-5.jpg",
-    "/cube-6.jpg",
+    assetPath("cube-1.jpg"),
+    assetPath("cube-2.jpg"),
+    assetPath("cube-3.jpg"),
+    assetPath("cube-4.jpg"),
+    assetPath("cube-5.jpg"),
+    assetPath("cube-6.jpg"),
   ],
   scrollHint: "Scroll to explore projects →",
 };
@@ -148,28 +150,28 @@ export const parallaxGalleryConfig: ParallaxGalleryConfig = {
   ],
   endCtaText: "Explore My GitHub",
   parallaxImagesTop: [
-    { id: 1, src: "/skill-1.jpg", alt: "Python Programming" },
-    { id: 2, src: "/skill-2.jpg", alt: "SQL Database" },
-    { id: 3, src: "/skill-3.jpg", alt: "Azure Cloud" },
-    { id: 4, src: "/skill-4.jpg", alt: "Data Visualization" },
-    { id: 5, src: "/skill-5.jpg", alt: "ETL Pipeline" },
-    { id: 6, src: "/skill-6.jpg", alt: "Cloud Architecture" },
+    { id: 1, src: assetPath("skill-1.jpg"), alt: "Python Programming" },
+    { id: 2, src: assetPath("skill-2.jpg"), alt: "SQL Database" },
+    { id: 3, src: assetPath("skill-3.jpg"), alt: "Azure Cloud" },
+    { id: 4, src: assetPath("skill-4.jpg"), alt: "Data Visualization" },
+    { id: 5, src: assetPath("skill-5.jpg"), alt: "ETL Pipeline" },
+    { id: 6, src: assetPath("skill-6.jpg"), alt: "Cloud Architecture" },
   ],
   parallaxImagesBottom: [
-    { id: 7, src: "/skill-7.jpg", alt: "Databricks" },
-    { id: 8, src: "/skill-8.jpg", alt: "Power BI Dashboard" },
-    { id: 9, src: "/skill-9.jpg", alt: "Data Analytics" },
-    { id: 10, src: "/skill-10.jpg", alt: "Machine Learning" },
-    { id: 11, src: "/skill-11.jpg", alt: "Big Data" },
-    { id: 12, src: "/skill-12.jpg", alt: "Data Engineering" },
+    { id: 7, src: assetPath("skill-7.jpg"), alt: "Databricks" },
+    { id: 8, src: assetPath("skill-8.jpg"), alt: "Power BI Dashboard" },
+    { id: 9, src: assetPath("skill-9.jpg"), alt: "Data Analytics" },
+    { id: 10, src: assetPath("skill-10.jpg"), alt: "Machine Learning" },
+    { id: 11, src: assetPath("skill-11.jpg"), alt: "Big Data" },
+    { id: 12, src: assetPath("skill-12.jpg"), alt: "Data Engineering" },
   ],
   galleryImages: [
-    { id: 1, src: "/tech-python.jpg", title: "Python", date: "Pandas • NumPy • PySpark" },
-    { id: 2, src: "/tech-sql.jpg", title: "SQL/T-SQL", date: "PostgreSQL • SQL Server • MongoDB" },
-    { id: 3, src: "/tech-azure.jpg", title: "Azure", date: "Synapse • Data Factory • Databricks" },
-    { id: 4, src: "/tech-aws.jpg", title: "AWS", date: "Redshift • Glue • S3" },
-    { id: 5, src: "/tech-powerbi.jpg", title: "Power BI", date: "DAX • Advanced Visualizations" },
-    { id: 6, src: "/tech-dbt.jpg", title: "DBT", date: "Data Transformation • Testing" },
+    { id: 1, src: assetPath("tech-python.jpg"), title: "Python", date: "Pandas • NumPy • PySpark" },
+    { id: 2, src: assetPath("tech-sql.jpg"), title: "SQL/T-SQL", date: "PostgreSQL • SQL Server • MongoDB" },
+    { id: 3, src: assetPath("tech-azure.jpg"), title: "Azure", date: "Synapse • Data Factory • Databricks" },
+    { id: 4, src: assetPath("tech-aws.jpg"), title: "AWS", date: "Redshift • Glue • S3" },
+    { id: 5, src: assetPath("tech-powerbi.jpg"), title: "Power BI", date: "DAX • Advanced Visualizations" },
+    { id: 6, src: assetPath("tech-dbt.jpg"), title: "DBT", date: "Data Transformation • Testing" },
   ],
 };
 
@@ -206,7 +208,7 @@ export interface TourScheduleConfig {
 export const tourScheduleConfig: TourScheduleConfig = {
   sectionLabel: "PROFESSIONAL JOURNEY",
   sectionTitle: "EXPERIENCE & MILESTONES",
-  vinylImage: "/vinyl-disc.png",
+  vinylImage: assetPath("vinyl-disc.png"),
   buyButtonText: "View Certificate",
   detailsButtonText: "Learn More",
   bottomNote: "Continuously learning and growing in the data engineering space",
@@ -225,7 +227,7 @@ export const tourScheduleConfig: TourScheduleConfig = {
       city: "Data Engineering",
       venue: "Self-Learning & Projects",
       status: "on-sale",
-      image: "/exp-1.jpg",
+      image: assetPath("exp-1.jpg"),
     },
     {
       id: 2,
@@ -234,7 +236,7 @@ export const tourScheduleConfig: TourScheduleConfig = {
       city: "RitSky Global",
       venue: "AI-Powered Export Analytics",
       status: "on-sale",
-      image: "/exp-2.jpg",
+      image: assetPath("exp-2.jpg"),
     },
     {
       id: 3,
@@ -243,7 +245,7 @@ export const tourScheduleConfig: TourScheduleConfig = {
       city: "Azure Data Engineer",
       venue: "Microsoft Certification",
       status: "coming-soon",
-      image: "/exp-3.jpg",
+      image: assetPath("exp-3.jpg"),
     },
     {
       id: 4,
@@ -252,7 +254,7 @@ export const tourScheduleConfig: TourScheduleConfig = {
       city: "Google Cloud Data Engineer",
       venue: "GCP Certification",
       status: "coming-soon",
-      image: "/exp-4.jpg",
+      image: assetPath("exp-4.jpg"),
     },
   ],
 };
@@ -299,7 +301,7 @@ export interface FooterConfig {
 }
 
 export const footerConfig: FooterConfig = {
-  portraitImage: "/portrait.jpg",
+  portraitImage: assetPath("portrait.jpg"),
   portraitAlt: "Ritik Kumar - Data Engineer",
   heroTitle: "LET'S BUILD",
   heroSubtitle: "DATA SOLUTIONS TOGETHER",
@@ -330,11 +332,11 @@ export const footerConfig: FooterConfig = {
     { icon: "music", label: "Tableau", href: "https://public.tableau.com/app/profile/ritik.sky" },
   ],
   galleryImages: [
-    { id: 1, src: "/gallery-1.jpg" },
-    { id: 2, src: "/gallery-2.jpg" },
-    { id: 3, src: "/gallery-3.jpg" },
-    { id: 4, src: "/gallery-4.jpg" },
-    { id: 5, src: "/gallery-5.jpg" },
-    { id: 6, src: "/gallery-6.jpg" },
+    { id: 1, src: assetPath("gallery-1.jpg") },
+    { id: 2, src: assetPath("gallery-2.jpg") },
+    { id: 3, src: assetPath("gallery-3.jpg") },
+    { id: 4, src: assetPath("gallery-4.jpg") },
+    { id: 5, src: assetPath("gallery-5.jpg") },
+    { id: 6, src: assetPath("gallery-6.jpg") },
   ],
 };
