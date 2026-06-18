@@ -1,1 +1,3 @@
-This is my portfolio project 
+## Portfolio
+
+🔗 [View My Portfolio](https://ritik574-coder.github.io/ritik-portfolio/)
