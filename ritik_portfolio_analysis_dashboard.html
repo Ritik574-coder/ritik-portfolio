@@ -1,0 +1,307 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .section-title{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin:0 0 10px}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px 20px;margin-bottom:12px}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin:2px 3px 2px 0}
+  .tag-blue{background:var(--color-background-info);color:var(--color-text-info)}
+  .tag-green{background:var(--color-background-success);color:var(--color-text-success)}
+  .tag-amber{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .tag-gray{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+  .stars{color:#EF9F27;font-size:13px}
+  .tier-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:middle}
+  .tier1{background:var(--color-background-info);color:var(--color-text-info)}
+  .tier2{background:var(--color-background-success);color:var(--color-text-success)}
+  .tier3{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+  .metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+  .metric-num{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1.1}
+  .metric-label{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+  .proj-row{display:grid;grid-template-columns:28px 1fr auto;align-items:start;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .proj-row:last-child{border-bottom:none}
+  .rank{font-size:13px;font-weight:500;color:var(--color-text-tertiary);padding-top:1px}
+  .proj-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+  .proj-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+  .proj-tags{margin-top:5px}
+  .complexity{font-size:13px}
+  .skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .skill-item{font-size:12px;color:var(--color-text-secondary);display:flex;align-items:center;gap:6px}
+  .skill-bar{flex:1;height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden}
+  .skill-fill{height:100%;border-radius:2px}
+  .resume-bullets{list-style:none;padding:0;margin:0}
+  .resume-bullets li{font-size:12px;color:var(--color-text-secondary);padding:4px 0 4px 16px;position:relative;line-height:1.5}
+  .resume-bullets li::before{content:"▸";position:absolute;left:0;color:var(--color-text-info);font-size:10px;top:6px}
+  .brand-box{background:var(--color-background-secondary);border-left:3px solid var(--color-border-info);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:14px 16px;margin:8px 0}
+  .warn-item{font-size:12px;color:var(--color-text-secondary);padding:3px 0 3px 14px;position:relative}
+  .warn-item::before{content:"→";position:absolute;left:0;color:var(--color-text-warning);font-size:11px}
+</style>
+
+<h2 class="sr-only">Ritik Kumar — Complete GitHub Portfolio Analysis Dashboard covering 13 repositories, project rankings, skills, resume bullets, and recruiter branding.</h2>
+
+<div style="padding:1rem 0 0">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+    <div>
+      <div style="font-size:20px;font-weight:500;color:var(--color-text-primary)">Ritik Kumar — Portfolio Analysis</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);margin-top:3px">GitHub: Ritik574-coder · Data Engineer · India</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:12px;color:var(--color-text-tertiary)">Analysis date</div>
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary)">June 2026</div>
+    </div>
+  </div>
+
+  <!-- Metrics row -->
+  <div class="metric-row">
+    <div class="metric">
+      <div class="metric-num">13</div>
+      <div class="metric-label">Public repos</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">480+</div>
+      <div class="metric-label">Total commits</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">12</div>
+      <div class="metric-label">Projects analyzed</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">35+</div>
+      <div class="metric-label">Technologies</div>
+    </div>
+  </div>
+
+  <!-- Project Rankings -->
+  <div class="card">
+    <div class="section-title">Top 10 projects — ranked by recruiter impact</div>
+
+    <div class="proj-row">
+      <div class="rank">1</div>
+      <div>
+        <div class="proj-name">dbt Analytics Engineering with CI/CD <span class="tier-badge tier1">Tier 1 · Flagship</span></div>
+        <div class="proj-sub">dbt-analytics-engineering · 22 commits · T-SQL 86%</div>
+        <div class="proj-tags">
+          <span class="tag tag-blue">dbt Core</span><span class="tag tag-blue">GitHub Actions (3 workflows)</span><span class="tag tag-blue">SQLFluff</span><span class="tag tag-blue">SCD Type 2</span><span class="tag tag-blue">GitHub Pages</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">2</div>
+      <div>
+        <div class="proj-name">Retail Medallion Data Warehouse (8 entities) <span class="tier-badge tier1">Tier 1 · Flagship</span></div>
+        <div class="proj-sub">Medallion-Data-Warehouse · 44 commits · T-SQL 94%</div>
+        <div class="proj-tags">
+          <span class="tag tag-blue">SQL Server 2022</span><span class="tag tag-blue">Docker</span><span class="tag tag-blue">Per-entity DQ</span><span class="tag tag-blue">TRY_CONVERT()</span><span class="tag tag-blue">8 business entities</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐⭐½</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">3</div>
+      <div>
+        <div class="proj-name">BusinessDW — SQL Server Data Warehouse <span class="tier-badge tier1">Tier 1 · Flagship</span></div>
+        <div class="proj-sub">sqlserver-datawarehouse · 53 commits · Python 96%</div>
+        <div class="proj-tags">
+          <span class="tag tag-blue">CRM + ERP integration</span><span class="tag tag-blue">Star Schema</span><span class="tag tag-blue">Apache Superset</span><span class="tag tag-blue">PlantUML</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">4</div>
+      <div>
+        <div class="proj-name">dbt SQL Server Learning Project <span class="tier-badge tier2">Tier 2 · Supporting</span></div>
+        <div class="proj-sub">dbt_learning_project · 169 commits · Python 98% · ⭐1 🍴1</div>
+        <div class="proj-tags">
+          <span class="tag tag-green">169 commits</span><span class="tag tag-green">Community starred</span><span class="tag tag-green">Full dbt coverage</span><span class="tag tag-green">DATA_PIPELINE_GUIDE</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">5</div>
+      <div>
+        <div class="proj-name">Data Ecosystem Platform <span class="tier-badge tier2">Tier 2 · Supporting</span></div>
+        <div class="proj-sub">data-ecosystem-platform · 72 commits · DW + Lake + Lakehouse + PySpark</div>
+        <div class="proj-tags">
+          <span class="tag tag-green">Architecture breadth</span><span class="tag tag-green">PySpark</span><span class="tag tag-green">Data Lakehouse</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐½</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">6</div>
+      <div>
+        <div class="proj-name">Workforce Pulse (HR Analytics — Power BI) <span class="tier-badge tier3">Tier 3 · BI</span></div>
+        <div class="proj-sub">Bi-Project- · Power BI · Attrition, demographics, performance</div>
+        <div class="proj-tags">
+          <span class="tag tag-amber">Power BI</span><span class="tag tag-amber">DAX</span><span class="tag tag-amber">Navigation panels</span><span class="tag tag-amber">Tooltip pages</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐½</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">7</div>
+      <div>
+        <div class="proj-name">Sales Pulse 2023 (Sales Analytics — Power BI) <span class="tier-badge tier3">Tier 3 · BI</span></div>
+        <div class="proj-sub">Bi-Project- · Customer growth, orders, YoY KPIs, top buyer spotlight</div>
+        <div class="proj-tags">
+          <span class="tag tag-amber">Power BI</span><span class="tag tag-amber">YoY KPIs</span><span class="tag tag-amber">Customer segmentation</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">8</div>
+      <div>
+        <div class="proj-name">People Insights (HR Analytics — Tableau) <span class="tier-badge tier3">Tier 3 · BI</span></div>
+        <div class="proj-sub">Bi-Project- · Education-performance matrix, salary-age scatter, hiring trends</div>
+        <div class="proj-tags">
+          <span class="tag tag-amber">Tableau</span><span class="tag tag-amber">Scatter plots</span><span class="tag tag-amber">Performance matrix</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">9</div>
+      <div>
+        <div class="proj-name">World Economy Analysis <span class="tier-badge tier3">Tier 3 · BI</span></div>
+        <div class="proj-sub">Bi-Project- · GDP, growth rates, geographic economic mapping</div>
+        <div class="proj-tags">
+          <span class="tag tag-amber">Macroeconomics</span><span class="tag tag-amber">Geographic viz</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐⭐</div>
+    </div>
+
+    <div class="proj-row">
+      <div class="rank">10</div>
+      <div>
+        <div class="proj-name">ATM Analytics + Data Job Dashboard <span class="tier-badge tier3">Tier 3 · BI</span></div>
+        <div class="proj-sub">Bi-Project- · Domain-specific analytics dashboards</div>
+        <div class="proj-tags">
+          <span class="tag tag-amber">Specialized domains</span><span class="tag tag-amber">Financial analytics</span>
+        </div>
+      </div>
+      <div class="complexity">⭐⭐½</div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="card">
+    <div class="section-title">Skills inferred — evidence strength</div>
+    <div class="skill-grid">
+      <div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">SQL Server / T-SQL</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%;background:#3B8BD4"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">5 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Medallion Architecture</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:100%;background:#3B8BD4"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">4 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">dbt Core</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:95%;background:#3B8BD4"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">3 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Star Schema modeling</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;background:#3B8BD4"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">3 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Docker / Compose</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;background:#1D9E75"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">3 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">GitHub Actions CI/CD</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;background:#1D9E75"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">3 proj</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Power BI / DAX</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;background:#BA7517"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">3 dash</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Tableau</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%;background:#BA7517"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">2 dash</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Apache Superset</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:60%;background:#BA7517"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">1 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Data quality / DQ rules</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;background:#534AB7"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">2 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">SQLFluff linting</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:50%;background:#534AB7"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">1 proj</span>
+        </div>
+        <div class="skill-item">
+          <span style="min-width:130px;font-size:12px">Python scripting</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%;background:#1D9E75"></div></div>
+          <span style="font-size:11px;color:var(--color-text-tertiary);min-width:30px;text-align:right">multiple</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ATS Resume Bullets -->
+  <div class="card">
+    <div class="section-title">ATS-ready resume bullets — top 5 picks</div>
+    <ul class="resume-bullets">
+      <li>Designed and implemented end-to-end data warehouses on SQL Server using Medallion Architecture (Bronze → Silver → Gold), integrating CRM and ERP systems into a Star Schema with `dim_customers`, `dim_products`, and `fact_sales` Gold-layer views consumed by Apache Superset dashboards</li>
+      <li>Built production-grade dbt analytics engineering pipeline with three GitHub Actions workflows (PR linting/testing, production deployment, GitHub Pages documentation), SQLFluff SQL linting, SCD Type 2 snapshots, and dbt schema + singular tests on SQL Server 2022</li>
+      <li>Implemented enterprise-level data quality framework across 8 retail entities (customers, employees, inventory, products, stores, returns, reviews, transactions) with per-entity transformation SQL, defensive T-SQL patterns (`TRY_CONVERT()`, CASE), and documented business rules in Markdown per entity</li>
+      <li>Developed a portfolio of 6 Power BI and Tableau dashboards across HR analytics (attrition, demographics), sales analytics (YoY KPIs, top buyers), and macroeconomic analysis (global GDP, growth rates) using DAX measures, slicer-based filtering, and tooltip drill-through pages</li>
+      <li>Maintained 169-commit dbt learning project covering full analytics engineering workflow: staging/intermediate/marts layers, incremental models, SCD Type 2, Jinja macros, seeds, source freshness monitoring, and CI/CD integration — community-recognized with a star and fork</li>
+    </ul>
+  </div>
+
+  <!-- Personal Branding -->
+  <div class="card">
+    <div class="section-title">Recruiter-focused personal branding statement</div>
+    <div class="brand-box">
+      <div style="font-size:13px;color:var(--color-text-primary);line-height:1.6;font-style:italic">"Ritik Kumar builds production-quality data systems — not just portfolio toys. Three Medallion Architecture implementations, a fully automated dbt CI/CD pipeline with SQLFluff and GitHub Pages, and 12 projects documented with ERDs, PlantUML diagrams, and per-entity business rule specs. At his experience level, the architecture intentionality and documentation discipline are rare. For a team hiring a junior-to-mid Data Engineer or Analytics Engineer, he's an unusually strong candidate."</div>
+    </div>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
+      <span class="tag tag-blue">Junior Data Engineer</span>
+      <span class="tag tag-blue">Analytics Engineer (dbt)</span>
+      <span class="tag tag-blue">BI Engineer</span>
+      <span class="tag tag-blue">SQL Data Engineer</span>
+    </div>
+  </div>
+
+  <!-- Gaps to fill -->
+  <div class="card">
+    <div class="section-title">Honest gaps — what to build next</div>
+    <div class="warn-item">Cloud project missing (AWS/Azure/GCP listed in profile but no evidence in repos — add Azure Data Factory or BigQuery project)</div>
+    <div class="warn-item">Apache Airflow absent (listed in profile — add a DAG orchestrating an existing warehouse pipeline)</div>
+    <div class="warn-item">PySpark needs a real standalone project (data-ecosystem-platform mentions it but primary language is Julia)</div>
+    <div class="warn-item">No streaming/Kafka project (listed in profile — even a simple producer-consumer demo adds range)</div>
+    <div class="warn-item">Snowflake or Databricks missing (most in-demand warehouses in current market — migrate one project)</div>
+    <div class="warn-item">Stars are low (work is quality — promote via LinkedIn posts and DEV.to articles to build community recognition)</div>
+  </div>
+
+</div>
