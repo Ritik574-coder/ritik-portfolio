@@ -2,7 +2,9 @@ name: Deploy Kimi app to GitHub Pages
 
 on:
   push:
-    branches: ["portfolio"]
+    branches:
+      - portfolio
+      - my_website
   workflow_dispatch:
 
 permissions:
