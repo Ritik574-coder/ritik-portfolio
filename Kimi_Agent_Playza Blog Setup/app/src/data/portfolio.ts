@@ -1,6 +1,7 @@
 export type ProjectCategory = "Data Engineering" | "Business Intelligence" | "Learning";
 
 export interface Project {
+  id: string;
   title: string;
   category: ProjectCategory;
   repository: string;
@@ -13,6 +14,10 @@ export interface Project {
   recruiterValue: string;
   complexity: number;
   featured?: boolean;
+  media?: {
+    screenshot?: { src: string; alt: string };
+    diagram?: { src: string; alt: string; type: "dbt DAG" | "Star schema" | "Medallion architecture" | "Data flow" };
+  };
 }
 
 export interface Skill {
@@ -72,7 +77,6 @@ export const about = {
 export const github = {
   username: "Ritik574-coder",
   repositories: "13+",
-  commits: "480+",
   achievements: ["Pull Shark x3", "Pair Extraordinaire x3", "Quickdraw", "YOLO"],
   highlights: [
     "dbt CI/CD with lint, parse, compile, run, test, deploy, and docs workflows",
@@ -84,6 +88,7 @@ export const github = {
 
 export const projects: Project[] = [
   {
+    id: "dbt-analytics-engineering",
     title: "dbt Analytics Engineering",
     category: "Data Engineering",
     repository: "dbt-analytics-engineering",
@@ -111,6 +116,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "retail-medallion-data-warehouse",
     title: "Retail Medallion Data Warehouse",
     category: "Data Engineering",
     repository: "Medallion-Data-Warehouse",
@@ -138,6 +144,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "sql-server-data-warehouse",
     title: "SQL Server Data Warehouse",
     category: "Data Engineering",
     repository: "sqlserver-datawarehouse",
@@ -165,6 +172,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "data-ecosystem-platform",
     title: "Data Ecosystem Platform",
     category: "Data Engineering",
     repository: "data-ecosystem-platform",
@@ -191,6 +199,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "dbt-learning-project",
     title: "dbt Learning Project",
     category: "Learning",
     repository: "dbt_learning_project",
@@ -217,6 +226,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "workforce-pulse",
     title: "Workforce Pulse",
     category: "Business Intelligence",
     repository: "Bi-Project-",
@@ -230,6 +240,7 @@ export const projects: Project[] = [
     complexity: 3.5,
   },
   {
+    id: "people-insights",
     title: "People Insights",
     category: "Business Intelligence",
     repository: "Bi-Project-",
@@ -243,6 +254,7 @@ export const projects: Project[] = [
     complexity: 3,
   },
   {
+    id: "sales-pulse-2023",
     title: "Sales Pulse 2023",
     category: "Business Intelligence",
     repository: "Bi-Project-",
@@ -256,6 +268,7 @@ export const projects: Project[] = [
     complexity: 3,
   },
   {
+    id: "world-economy-analysis",
     title: "World Economy Analysis",
     category: "Business Intelligence",
     repository: "Bi-Project-",
@@ -269,6 +282,7 @@ export const projects: Project[] = [
     complexity: 3,
   },
   {
+    id: "atm-analytics-dashboard",
     title: "ATM Analytics Dashboard",
     category: "Business Intelligence",
     repository: "Bi-Project-",
@@ -282,6 +296,7 @@ export const projects: Project[] = [
     complexity: 2.5,
   },
   {
+    id: "data-job-dashboard",
     title: "Data Job Dashboard",
     category: "Business Intelligence",
     repository: "Bi-Project-",

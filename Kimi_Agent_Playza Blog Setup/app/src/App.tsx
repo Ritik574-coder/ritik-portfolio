@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   ArrowUpRight,
   Award,
@@ -10,20 +10,26 @@ import {
   Download,
   FileText,
   Filter,
+  GitFork,
   Github,
   GitPullRequestArrow,
   Linkedin,
+  ImageOff,
   Mail,
-  MessageCircle,
+  Menu,
   Search,
   ShieldCheck,
   Sparkles,
   Star,
   TableProperties,
+  Users,
   Workflow,
+  X,
 } from "lucide-react";
 import "./index.css";
 import useLenis from "./hooks/useLenis";
+import { useGitHubData } from "./hooks/useGitHubData";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import {
   about,
   certificateUrl,
@@ -52,9 +58,10 @@ const categories: Array<"All" | ProjectCategory> = [
   "Learning",
 ];
 
-const scrollTo = (id: string) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-};
+const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+const formatDate = (value?: string) =>
+  value ? new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(new Date(value)) : "Not available";
 
 const Stars = ({ value }: { value: number }) => (
   <div className="flex items-center gap-1" aria-label={`Complexity ${value} out of 5`}>
@@ -84,7 +91,10 @@ const SectionHeader = ({
   </div>
 );
 
-const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[number]; compact?: boolean }) => (
+const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[number]; compact?: boolean }) => {
+  const { data } = useGitHubData();
+  const repository = data.repositories[project.repository];
+  return (
   <article className={`project-card ${compact ? "project-card-compact" : ""}`}>
     <div className="project-card-top">
       <div>
@@ -96,6 +106,18 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
         <ArrowUpRight className="h-5 w-5" />
       </a>
     </div>
+
+    {project.media?.screenshot ? (
+      <figure className="project-visual">
+        <img src={project.media.screenshot.src} alt={project.media.screenshot.alt} loading="lazy" />
+        <figcaption>Verified project screenshot</figcaption>
+      </figure>
+    ) : (
+      <div className="project-visual-placeholder" role="status">
+        <ImageOff className="h-5 w-5" aria-hidden="true" />
+        <div><strong>Screenshot pending</strong><span>An owner-provided project capture will appear here.</span></div>
+      </div>
+    )}
 
     <div className="project-grid">
       <div>
@@ -118,6 +140,14 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
               {item}
             </p>
           ))}
+          {project.media?.diagram ? (
+            <figure className="project-diagram">
+              <img src={project.media.diagram.src} alt={project.media.diagram.alt} loading="lazy" />
+              <figcaption>Verified {project.media.diagram.type} diagram</figcaption>
+            </figure>
+          ) : (
+            <p className="diagram-placeholder"><ImageOff className="h-4 w-4" aria-hidden="true" />Architecture diagram not yet published.</p>
+          )}
         </div>
         <div className="achievement-list">
           <span>Key Achievements</span>
@@ -136,6 +166,15 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
       ))}
     </div>
 
+    {repository ? (
+      <p className="repository-meta" aria-label={`${project.repository} repository metadata`}>
+        <Star className="h-3.5 w-3.5" aria-hidden="true" /> {repository.stars}
+        <GitFork className="h-3.5 w-3.5" aria-hidden="true" /> {repository.forks}
+        <span>{repository.languages.slice(0, 3).join(" · ") || repository.language || "Language unavailable"}</span>
+        <span>Updated {formatDate(repository.updatedAt)}</span>
+      </p>
+    ) : null}
+
     <div className="recruiter-value">
       <ShieldCheck className="h-4 w-4" />
       <p>{project.recruiterValue}</p>
@@ -149,24 +188,55 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
       </a>
     </div>
   </article>
-);
+  );
+};
 
 function Hero() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
+  const { data: githubData } = useGitHubData();
+  const liveStats = [
+    { label: "Public Repositories", value: String(githubData.profile.publicRepos || "—") },
+    { label: "Recent Public Events", value: String(githubData.recentActivity.length || "—") },
+    { label: "Projects", value: String(projects.length) },
+    { label: "Open Source", value: "Contributor" },
+  ];
+
+  useEffect(() => {
+    const sections = ["top", ...navItems.map(([, id]) => id)];
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && setActiveSection(entry.target.id)),
+      { rootMargin: "-35% 0px -55%" },
+    );
+    sections.forEach((id) => document.getElementById(id) && observer.observe(document.getElementById(id)!));
+    return () => observer.disconnect();
+  }, []);
+
+  const navigate = (id: string) => {
+    scrollTo(id);
+    setMenuOpen(false);
+  };
+
   return (
     <section className="hero-section" id="top">
-      <div className="nav-shell" aria-label="Primary navigation">
-        <button className="brand-chip" onClick={() => scrollTo("top")} aria-label="Back to top">
+      <a className="skip-link" href="#about">Skip to portfolio content</a>
+      <header className="nav-shell">
+        <button className="brand-chip" onClick={() => navigate("top")} aria-label="Back to top">
           <Database className="h-4 w-4" />
           <span>Ritik Kumar</span>
         </button>
-        <nav>
+        <button className="mobile-nav-toggle" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="primary-navigation">
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <span>Menu</span>
+        </button>
+        <nav id="primary-navigation" className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
           {navItems.map(([label, id]) => (
-            <button key={id} onClick={() => scrollTo(id)}>
+            <button key={id} onClick={() => navigate(id)} aria-current={activeSection === id ? "page" : undefined}>
               {label}
             </button>
           ))}
         </nav>
-      </div>
+      </header>
 
       <div className="data-grid-bg" />
       <div className="pipeline-visual" aria-hidden="true">
@@ -193,14 +263,6 @@ function Hero() {
               <Linkedin className="h-4 w-4" />
               LinkedIn
             </a>
-            <a href={`mailto:${profile.email}`}>
-              <Mail className="h-4 w-4" />
-              Email
-            </a>
-            <a href={profile.discordUrl} target="_blank" rel="noreferrer">
-              <MessageCircle className="h-4 w-4" />
-              Discord
-            </a>
             <a className="primary-action" href={profile.resumeUrl} download>
               <Download className="h-4 w-4" />
               Resume
@@ -209,8 +271,8 @@ function Hero() {
         </div>
 
         <aside className="hero-profile" aria-label="Profile summary">
-          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" loading="eager" />
-          <div>
+          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="992" height="1056" loading="eager" />
+          <div className="hero-profile-copy">
             <p>{profile.name}</p>
             <h2>{profile.title}</h2>
             <span>{profile.location}</span>
@@ -219,7 +281,7 @@ function Hero() {
       </div>
 
       <div className="metric-strip">
-        {profile.stats.map((stat) => (
+        {liveStats.map((stat) => (
           <div key={stat.label}>
             <strong>{stat.value}</strong>
             <span>{stat.label}</span>
@@ -231,12 +293,13 @@ function Hero() {
 }
 
 function About() {
+  const { data: githubData } = useGitHubData();
   const cards = [
     ["Professional Summary", about.summary, BriefcaseBusiness],
     ["Career Journey", about.journey, Workflow],
     ["Learning Philosophy", about.philosophy, Sparkles],
     ["Engineering Mindset", about.mindset, Blocks],
-    ["Open Source Contributions", about.openSource, GitPullRequestArrow],
+    ["Open Source Contributions", `GitHub activity includes ${githubData.profile.publicRepos || "public"} repositories, recent public activity, reusable project documentation, issue/PR templates, GitHub Actions workflows, and community-facing dbt/data warehouse learning assets.`, GitPullRequestArrow],
   ];
 
   return (
@@ -248,7 +311,7 @@ function About() {
       />
       <div className="about-layout">
         <div className="about-photo">
-          <img src={profile.portrait} alt="Ritik Kumar profile portrait" loading="lazy" />
+          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="992" height="1056" loading="lazy" />
         </div>
         <div className="about-cards">
           {cards.map(([title, copy, Icon]) => {
@@ -305,7 +368,7 @@ function FeaturedProjects() {
       />
       <div className="featured-grid">
         {projects.filter((project) => project.featured).map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </section>
@@ -361,9 +424,10 @@ function ProjectsExplorer() {
       </div>
       <div className="compact-project-grid">
         {filtered.map((project) => (
-          <ProjectCard key={`${project.title}-${project.category}`} project={project} compact />
+          <ProjectCard key={project.id} project={project} compact />
         ))}
       </div>
+      {!filtered.length ? <p className="empty-state" role="status">No projects match this search. Try a technology, repository, or another category.</p> : null}
     </section>
   );
 }
@@ -444,11 +508,13 @@ function Certifications() {
           );
         })}
       </div>
+      {!filtered.length ? <p className="empty-state" role="status">No certifications match this search. Try a broader skill or category.</p> : null}
     </section>
   );
 }
 
 function Resume() {
+  const { data: githubData } = useGitHubData();
   return (
     <section className="content-section resume-section" id="resume">
       <SectionHeader
@@ -470,7 +536,7 @@ function Resume() {
             <span>Education & Learning</span>
             <p>Certificate-backed learning across SQL, Python, dbt, Docker, Linux, Spark, Airflow, governance, and data engineering foundations.</p>
             <span>Achievements</span>
-            <p>13+ public repositories, 480+ commits, GitHub achievements, and multiple documented data systems.</p>
+            <p>{githubData.profile.publicRepos || "Public"} repositories, recent GitHub activity, GitHub achievements, and multiple documented data systems.</p>
           </div>
           <a className="primary-action" href={profile.resumeUrl} download>
             <Download className="h-4 w-4" />
@@ -483,18 +549,25 @@ function Resume() {
 }
 
 function GitHubSection() {
+  const { data, status } = useGitHubData();
   return (
     <section className="content-section" id="github">
       <SectionHeader
         eyebrow="GitHub Proof"
         title="Repository activity that supports the Data Engineering brand."
-        copy="Static portfolio proof is used so the site remains fast and reliable even if an API request fails."
+        copy="Profile and repository metadata refresh from GitHub when available; safe portfolio fallback data stays visible when it is not."
       />
       <div className="github-layout">
         <article className="github-card">
           <Github className="h-9 w-9 text-cyan-300" />
           <h3>{github.username}</h3>
-          <p>{github.repositories} public repositories / {github.commits} commits</p>
+          <p>{data.profile.publicRepos || github.repositories} public repositories</p>
+          {data.profile.bio ? <p>{data.profile.bio}</p> : null}
+          <div className="github-stats" aria-label="GitHub profile statistics">
+            <span><Users className="h-4 w-4" /> {data.profile.followers} followers</span>
+            <span><Users className="h-4 w-4" /> {data.profile.following} following</span>
+          </div>
+          <p className="data-status" role="status">{status === "loading" ? "Refreshing live GitHub data…" : status === "error" ? "Live data is unavailable; showing portfolio fallback." : "Live GitHub data, cached locally for one hour."}</p>
           <a href={profile.github} target="_blank" rel="noreferrer">
             Open GitHub Profile
             <ArrowUpRight className="h-4 w-4" />
@@ -515,6 +588,7 @@ function GitHubSection() {
               {highlight}
             </p>
           ))}
+          {data.recentActivity.length ? <div className="activity-list"><strong>Recent public activity</strong>{data.recentActivity.map((activity) => <p key={`${activity.repository}-${activity.createdAt}`}><CheckCircle2 className="h-4 w-4" />{activity.type} · {activity.repository} · {formatDate(activity.createdAt)}</p>)}</div> : null}
         </div>
       </div>
     </section>
@@ -522,19 +596,50 @@ function GitHubSection() {
 }
 
 function Contact() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error" | "unconfigured">("idle");
+  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!accessKey) {
+      setStatus("unconfigured");
+      return;
+    }
+    setStatus("submitting");
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+    if (payload.website) {
+      form.reset();
+      setStatus("success");
+      return;
+    }
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: accessKey, subject: "Portfolio contact request", ...payload }),
+      });
+      if (!response.ok) throw new Error("Contact request failed");
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section className="content-section contact-section" id="contact">
       <SectionHeader
         eyebrow="Contact"
         title="Available for Data Engineering, Analytics Engineering, SQL Server, dbt, and Data Warehouse roles."
-        copy="Use direct links for fastest response. The form opens a prefilled email so it works without a backend service."
+        copy="Use LinkedIn or GitHub, or send a message through the protected form. Messages are never placed in a mailto URL."
       />
       <div className="contact-layout">
         <div className="contact-links">
-          <a href={`mailto:${profile.email}`}>
+          <p className="contact-email">
             <Mail className="h-5 w-5" />
-            {profile.email}
-          </a>
+            ritik74820 [at] gmail [dot] com
+          </p>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             <Linkedin className="h-5 w-5" />
             LinkedIn
@@ -543,20 +648,12 @@ function Contact() {
             <Github className="h-5 w-5" />
             GitHub
           </a>
-          <a href={profile.discordUrl} target="_blank" rel="noreferrer">
-            <MessageCircle className="h-5 w-5" />
-            Discord @{profile.discord}
-          </a>
         </div>
-        <form
-          className="contact-form"
-          action={`mailto:${profile.email}`}
-          method="post"
-          encType="text/plain"
-        >
+        <form className="contact-form" onSubmit={onSubmit} noValidate>
+          <label className="honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
           <label>
             Name
-            <input name="name" autoComplete="name" required />
+            <input name="name" autoComplete="name" required minLength={2} />
           </label>
           <label>
             Email
@@ -568,12 +665,13 @@ function Contact() {
           </label>
           <label>
             Message
-            <textarea name="message" rows={5} required />
+            <textarea name="message" rows={5} required minLength={10} />
           </label>
-          <button type="submit">
+          <button type="submit" disabled={status === "submitting"}>
             <Mail className="h-4 w-4" />
-            Send Email
+            {status === "submitting" ? "Sending…" : "Send message"}
           </button>
+          {status !== "idle" ? <p className={`form-status ${status}`} role="status">{status === "success" ? "Thanks — your message has been sent." : status === "unconfigured" ? "The contact form needs its Web3Forms key before it can send messages. Please use LinkedIn or GitHub for now." : "Your message could not be sent. Please try again or use LinkedIn."}</p> : null}
         </form>
       </div>
     </section>
@@ -598,15 +696,15 @@ function App() {
 
   return (
     <main>
-      <Hero />
-      <About />
-      <Skills />
-      <FeaturedProjects />
-      <ProjectsExplorer />
-      <Certifications />
-      <Resume />
-      <GitHubSection />
-      <Contact />
+      <ErrorBoundary fallbackLabel="Navigation and introduction"><Hero /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="About section"><About /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Skills section"><Skills /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Featured projects"><FeaturedProjects /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Project explorer"><ProjectsExplorer /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Certifications"><Certifications /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Resume"><Resume /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="GitHub proof"><GitHubSection /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Contact section"><Contact /></ErrorBoundary>
       <footer className="site-footer">
         <div>
           <TableProperties className="h-4 w-4" />

@@ -9,6 +9,7 @@ export const useLenis = () => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Initialize Lenis with smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
