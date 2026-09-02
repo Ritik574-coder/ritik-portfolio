@@ -86,7 +86,7 @@ npm run build
 The existing GitHub Pages workflow builds this Vite app from:
 
 ```text
-Kimi_Agent_Playza Blog Setup/app
+app
 ```
 
 The production build output is generated in:

@@ -2,8 +2,8 @@
 
 ## Add a certificate
 
-1. Put the PDF in `Kimi_Agent_Playza Blog Setup/app/public/assets/certificates/`.
-2. In `src/data/portfolio.ts`, add this object inside `certifications`:
+1. Put the PDF in `app/public/assets/certificates/`.
+2. In `app/src/data/portfolio.ts`, add this object inside `certifications`:
 
 ```ts
 {
@@ -20,7 +20,7 @@ Use the exact PDF filename. `issueDate` is `YYYY-MM`; `skills` is a list of rela
 
 ## Add a project
 
-Add this object inside `projects` in `src/data/portfolio.ts`:
+Add this object inside `projects` in `app/src/data/portfolio.ts`:
 
 ```ts
 {
@@ -46,7 +46,7 @@ Add this object inside `projects` in `src/data/portfolio.ts`:
 Always use the `main` branch:
 
 ```bash
-git add "Kimi_Agent_Playza Blog Setup/app/public/assets/certificates/new-file.pdf" "Kimi_Agent_Playza Blog Setup/app/src/data/portfolio.ts"
+git add "app/public/assets/certificates/new-file.pdf" "app/src/data/portfolio.ts"
 git commit -m "content: add certificate or project"
 git push origin main
 ```
