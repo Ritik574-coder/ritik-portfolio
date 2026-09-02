@@ -70,7 +70,7 @@ export const ProjectCard = ({ project, compact = false }: { project: (typeof pro
         <p className="repository-meta" aria-label={`${project.repository} repository metadata`}>
           <Star className="h-3.5 w-3.5" aria-hidden="true" /> {repository.stars}
           <GitFork className="h-3.5 w-3.5" aria-hidden="true" /> {repository.forks}
-          <span>{repository.languages.slice(0, 3).join(" · ") || repository.language || "Language unavailable"}</span>
+          <span>{(repository.languages ?? []).slice(0, 3).join(" · ") || repository.language || "Language unavailable"}</span>
           <span>Updated {formatDate(repository.updatedAt)}</span>
         </p>
       ) : null}
@@ -94,7 +94,9 @@ export function ProjectSections() {
   const [category, setCategory] = useState<"All" | ProjectCategory>("All");
   const [githubOpen, setGithubOpen] = useState(true);
   const { data: githubData, status: githubStatus } = useGitHubData();
-  const githubRepositories = Object.values(githubData.repositories).sort((first, second) => second.stars - first.stars);
+  const githubRepositories = Object.values(githubData.repositories ?? {})
+    .filter((repository) => repository && repository.name && repository.htmlUrl)
+    .sort((first, second) => second.stars - first.stars);
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return projects.filter((project) => (category === "All" || project.category === category) &&
@@ -133,7 +135,7 @@ export function ProjectSections() {
                 <div className="repository-meta">
                   <span>{repository.stars} stars</span>
                   <span>{repository.forks} forks</span>
-                  <span>{repository.languages.slice(0, 3).join(" · ") || "Language details unavailable"}</span>
+                  <span>{(repository.languages ?? []).slice(0, 3).join(" · ") || "Language details unavailable"}</span>
                   <span>Updated {formatDate(repository.updatedAt)}</span>
                 </div>
                 <a href={repository.htmlUrl} target="_blank" rel="noreferrer">
