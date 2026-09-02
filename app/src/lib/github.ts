@@ -2,7 +2,7 @@ import { github, projects } from "../data/portfolio";
 
 const API_URL = "https://api.github.com";
 const CACHE_TTL = 60 * 60 * 1000;
-const CACHE_KEY = "ritik-portfolio:github:v1";
+const CACHE_KEY = "ritik-portfolio:github:v2";
 let requestInFlight: Promise<GitHubData> | null = null;
 
 export interface GitHubProfile {
@@ -16,6 +16,8 @@ export interface GitHubProfile {
 
 export interface GitHubRepository {
   name: string;
+  description: string | null;
+  htmlUrl: string;
   stars: number;
   forks: number;
   language: string | null;
@@ -52,6 +54,8 @@ interface GitHubUserResponse {
 
 interface GitHubRepoResponse {
   name: string;
+  description: string | null;
+  html_url: string;
   stargazers_count: number;
   forks_count: number;
   language: string | null;
@@ -77,7 +81,7 @@ const fallbackData: GitHubData = {
   repositories: Object.fromEntries(
     projects.map((project) => [
       project.repository,
-      { name: project.repository, stars: 0, forks: 0, language: null, languages: [], updatedAt: "" },
+      { name: project.repository, description: null, htmlUrl: project.href, stars: 0, forks: 0, language: null, languages: [], updatedAt: "" },
     ]),
   ),
   recentActivity: [],
@@ -151,6 +155,8 @@ const fetchFreshGitHubData = async (): Promise<GitHubData> => {
           repo.name,
           {
             name: repo.name,
+            description: repo.description,
+            htmlUrl: repo.html_url,
             stars: repo.stargazers_count,
             forks: repo.forks_count,
             language: repo.language,

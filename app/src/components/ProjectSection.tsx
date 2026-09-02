@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowUpRight, CheckCircle2, Filter, GitFork, Github, ImageOff, Search, ShieldCheck, Star } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, ChevronDown, Filter, GitFork, Github, ImageOff, Search, ShieldCheck, Star } from "lucide-react";
 import { useGitHubData } from "../hooks/useGitHubData";
 import { projects, type ProjectCategory } from "../data/portfolio";
 
@@ -92,6 +92,9 @@ const SectionHeader = ({ eyebrow, title, copy }: { eyebrow: string; title: strin
 export function ProjectSections() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | ProjectCategory>("All");
+  const [githubOpen, setGithubOpen] = useState(false);
+  const { data: githubData, status: githubStatus } = useGitHubData();
+  const githubRepositories = Object.values(githubData.repositories).sort((first, second) => second.stars - first.stars);
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return projects.filter((project) => (category === "All" || project.category === category) &&
@@ -102,6 +105,44 @@ export function ProjectSections() {
       <section className="content-section" id="projects">
         <SectionHeader eyebrow="Featured Projects" title="Data warehouses, dbt pipelines, data quality systems, and BI-ready models." copy="Each card is written for recruiters and hiring managers: problem, solution, architecture, technology, outcomes, and role relevance." />
         <div className="featured-grid">{projects.filter((project) => project.featured).map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+        <div className="github-projects-card">
+          <div>
+            <span className="eyebrow">Live GitHub Library</span>
+            <h3>See every public project in one place.</h3>
+            <p>
+              Open this library to browse the repositories currently available on GitHub, with each project&apos;s own description,
+              technology signals, activity date, and link to inspect the code.
+            </p>
+          </div>
+          <button className="primary-action" type="button" onClick={() => setGithubOpen((open) => !open)} aria-expanded={githubOpen} aria-controls="github-project-library">
+            {githubOpen ? "Hide GitHub projects" : `View all ${githubData.profile.publicRepos || githubRepositories.length} GitHub projects`}
+            <ChevronDown className={githubOpen ? "rotate-180" : ""} aria-hidden="true" />
+          </button>
+        </div>
+        {githubOpen ? (
+          <div className="github-project-library" id="github-project-library" aria-live="polite">
+            {githubStatus === "loading" ? <p className="empty-state">Loading the latest public repositories from GitHub…</p> : null}
+            {githubStatus === "error" ? <p className="empty-state">GitHub is temporarily unavailable. The curated project library below remains available.</p> : null}
+            {githubStatus !== "error" && githubRepositories.length ? githubRepositories.map((repository) => (
+              <article className="github-project-item" key={repository.name}>
+                <div>
+                  <span className="repo-name">{repository.language || "Repository"}</span>
+                  <h3>{repository.name}</h3>
+                </div>
+                <p>{repository.description || "No GitHub description has been added yet. Open the repository to explore its README, implementation, and project details."}</p>
+                <div className="repository-meta">
+                  <span>{repository.stars} stars</span>
+                  <span>{repository.forks} forks</span>
+                  <span>{repository.languages.slice(0, 3).join(" · ") || "Language details unavailable"}</span>
+                  <span>Updated {formatDate(repository.updatedAt)}</span>
+                </div>
+                <a href={repository.htmlUrl} target="_blank" rel="noreferrer">
+                  Open repository <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </article>
+            )) : null}
+          </div>
+        ) : null}
         <div className="section-cta">
           <p>Explore the complete project library, including BI dashboards and learning projects.</p>
           <button className="primary-action" onClick={() => document.getElementById("all-projects")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
