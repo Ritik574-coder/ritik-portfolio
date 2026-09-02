@@ -40,18 +40,19 @@ module.exports = {
         },
         // Custom theme colors
         void: {
-          black: '#050508',
-          dark: '#0A0A0F',
+          black: '#1c1715',
+          dark: '#241b18',
         },
         neon: {
-          cyan: '#00D4FF',
-          blue: '#4D9FFF',
-          soft: '#9DC4FF',
+          cyan: '#e9a15b',
+          blue: '#d8785f',
+          soft: '#dfd0c3',
         },
       },
       fontFamily: {
-        display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        mono: ['JetBrains Mono', 'SF Mono', 'Monaco', 'monospace'],
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'SF Mono', 'Monaco', 'monospace'],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -62,8 +63,8 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        glow: "0 0 20px rgba(0, 212, 255, 0.3)",
-        'glow-lg': "0 0 40px rgba(0, 212, 255, 0.4)",
+        glow: "0 0 20px rgba(233, 161, 91, 0.24)",
+        'glow-lg': "0 0 40px rgba(216, 120, 95, 0.3)",
       },
       keyframes: {
         "accordion-down": {

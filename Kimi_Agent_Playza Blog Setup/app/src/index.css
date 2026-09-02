@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,19 +6,19 @@
 
 :root {
   color-scheme: dark;
-  --bg: #05070b;
-  --panel: rgba(12, 18, 28, 0.74);
-  --panel-strong: rgba(15, 23, 42, 0.92);
-  --line: rgba(148, 163, 184, 0.18);
-  --text: #e5eefb;
-  --muted: #93a4b8;
-  --soft: #cbd5e1;
-  --cyan: #45d5ff;
-  --teal: #34d399;
-  --blue: #8ab4ff;
-  --amber: #f6c768;
-  --danger: #fb7185;
-  --radius: 8px;
+  --bg: #1c1715;
+  --panel: rgba(49, 38, 32, 0.82);
+  --panel-strong: rgba(39, 29, 25, 0.96);
+  --line: rgba(226, 198, 171, 0.2);
+  --text: #f6eee6;
+  --muted: #bca99b;
+  --soft: #dfd0c3;
+  --cyan: #e9a15b;
+  --teal: #d8785f;
+  --blue: #c5a98e;
+  --amber: #f2c078;
+  --danger: #e4867b;
+  --radius: 10px;
 }
 
 * {
@@ -34,11 +34,11 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 18% 10%, rgba(69, 213, 255, 0.14), transparent 28rem),
-    radial-gradient(circle at 80% 4%, rgba(52, 211, 153, 0.08), transparent 30rem),
-    linear-gradient(180deg, #05070b 0%, #07101a 45%, #05070b 100%);
+    radial-gradient(circle at 18% 10%, rgba(233, 161, 91, 0.14), transparent 28rem),
+    radial-gradient(circle at 80% 4%, rgba(216, 120, 95, 0.1), transparent 30rem),
+    linear-gradient(180deg, #1c1715 0%, #241b18 45%, #1c1715 100%);
   color: var(--text);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Source Sans 3", system-ui, sans-serif;
   overflow-x: hidden;
 }
 
@@ -67,7 +67,7 @@ a {
   padding: 0.7rem 1rem;
   border-radius: var(--radius);
   background: var(--cyan);
-  color: #031018;
+  color: #251914;
   font-weight: 800;
 }
 
@@ -94,7 +94,7 @@ main {
   position: relative;
   min-height: 100svh;
   overflow: hidden;
-  padding: 7rem clamp(1rem, 4vw, 4rem) 2rem;
+  padding: 8rem clamp(1rem, 4vw, 4rem) 3rem;
   border-bottom: 1px solid var(--line);
 }
 
@@ -102,10 +102,10 @@ main {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.36;
+  opacity: 0.2;
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(226, 198, 171, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 198, 171, 0.1) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(to bottom, black, transparent 80%);
 }
@@ -124,9 +124,9 @@ main {
 .pipeline-visual span {
   content: "";
   position: absolute;
-  border: 1px solid rgba(69, 213, 255, 0.28);
-  background: rgba(69, 213, 255, 0.08);
-  box-shadow: 0 0 34px rgba(69, 213, 255, 0.08);
+  border: 1px solid rgba(233, 161, 91, 0.28);
+  background: rgba(233, 161, 91, 0.08);
+  box-shadow: 0 0 34px rgba(233, 161, 91, 0.08);
 }
 
 .pipeline-visual::before {
@@ -199,7 +199,7 @@ main {
   padding: 0.55rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(5, 9, 15, 0.78);
+  background: rgba(28, 23, 21, 0.86);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
 }
@@ -218,7 +218,7 @@ main {
   min-width: max-content;
   padding: 0.65rem 0.9rem;
   border-radius: 999px;
-  background: rgba(69, 213, 255, 0.12);
+  background: rgba(233, 161, 91, 0.14);
   color: white;
   font-weight: 700;
 }
@@ -283,7 +283,7 @@ main {
 .eyebrow {
   margin: 0 0 0.9rem;
   color: var(--cyan);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -294,14 +294,16 @@ main {
   max-width: 980px;
   margin: 0;
   color: white;
-  font-size: clamp(2.7rem, 7vw, 6.9rem);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.9rem, 7vw, 6.9rem);
+  font-weight: 600;
   line-height: 0.96;
   letter-spacing: 0;
 }
 
 .hero-summary {
   max-width: 780px;
-  margin: 1.5rem 0 0;
+  margin: 1.8rem 0 0;
   color: var(--soft);
   font-size: clamp(1rem, 1.7vw, 1.25rem);
   line-height: 1.7;
@@ -311,7 +313,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 2.4rem;
 }
 
 .hero-actions a,
@@ -344,13 +346,13 @@ main {
 .contact-form button:hover,
 .site-footer button:hover {
   transform: translateY(-1px);
-  border-color: rgba(69, 213, 255, 0.52);
-  background: rgba(69, 213, 255, 0.12);
+  border-color: rgba(233, 161, 91, 0.52);
+  background: rgba(233, 161, 91, 0.12);
 }
 
 .primary-action {
-  background: linear-gradient(135deg, rgba(69, 213, 255, 0.96), rgba(52, 211, 153, 0.88));
-  color: #031018;
+  background: linear-gradient(135deg, var(--cyan), var(--teal));
+  color: #251914;
   border-color: transparent;
 }
 
@@ -360,7 +362,7 @@ main {
   border: 1px solid rgba(148, 163, 184, 0.24);
   border-radius: 14px;
   background: var(--panel);
-  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.32);
+  box-shadow: 18px 24px 0 rgba(216, 120, 95, 0.18), 0 26px 80px rgba(0, 0, 0, 0.32);
 }
 
 .hero-profile img {
@@ -388,7 +390,7 @@ main {
 
 .hero-profile p {
   color: var(--muted);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.8rem;
 }
 
@@ -396,6 +398,7 @@ main {
   margin-top: 0.2rem;
   color: white;
   font-size: 1.9rem;
+  font-family: "Fraunces", Georgia, serif;
 }
 
 .hero-profile span {
@@ -411,7 +414,7 @@ main {
   margin: 2rem auto 0;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(15, 23, 42, 0.58);
+  background: rgba(49, 38, 32, 0.72);
   backdrop-filter: blur(18px);
 }
 
@@ -438,17 +441,18 @@ main {
 .content-section {
   max-width: 1240px;
   margin: 0 auto;
-  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 2rem);
+  padding: clamp(5.5rem, 10vw, 9rem) clamp(1rem, 4vw, 2rem);
 }
 
 .section-heading {
   max-width: 880px;
-  margin-bottom: 2rem;
+  margin-bottom: 2.8rem;
 }
 
 .section-heading h2 {
   margin: 0;
-  color: white;
+  color: var(--text);
+  font-family: "Fraunces", Georgia, serif;
   font-size: clamp(2rem, 4.6vw, 4rem);
   line-height: 1.02;
   letter-spacing: 0;
@@ -518,6 +522,20 @@ main {
   background: var(--panel);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.about-cards article:hover,
+.skill-card:hover,
+.project-card:hover,
+.cert-card:hover,
+.github-card:hover,
+.resume-panel:hover,
+.contact-form:hover,
+.contact-links:hover {
+  transform: translateY(-5px);
+  border-color: rgba(233, 161, 91, 0.48);
+  box-shadow: 10px 14px 0 rgba(216, 120, 95, 0.1), 0 24px 60px rgba(0, 0, 0, 0.22);
 }
 
 .about-cards article {
@@ -576,7 +594,7 @@ main {
 .cert-card span,
 .resume-points span {
   color: var(--cyan);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -657,9 +675,9 @@ main {
 .section-fallback {
   margin: 1rem 0 0;
   padding: 1rem;
-  border: 1px dashed rgba(69, 213, 255, 0.42);
+  border: 1px dashed rgba(233, 161, 91, 0.42);
   border-radius: var(--radius);
-  background: rgba(69, 213, 255, 0.06);
+  background: rgba(233, 161, 91, 0.06);
   color: var(--soft);
 }
 
@@ -705,7 +723,7 @@ main {
 .project-diagram figcaption {
   padding: 0.55rem 0.7rem;
   color: var(--muted);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.72rem;
 }
 
@@ -715,9 +733,9 @@ main {
   gap: 0.7rem;
   min-height: 108px;
   padding: 1rem;
-  border: 1px dashed rgba(69, 213, 255, 0.42);
+  border: 1px dashed rgba(233, 161, 91, 0.42);
   border-radius: var(--radius);
-  background: linear-gradient(135deg, rgba(69, 213, 255, 0.08), rgba(52, 211, 153, 0.05));
+  background: linear-gradient(135deg, rgba(233, 161, 91, 0.08), rgba(216, 120, 95, 0.05));
   color: var(--cyan);
 }
 
@@ -745,7 +763,7 @@ main {
 
 .repo-name {
   color: var(--muted) !important;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.82rem;
 }
 
@@ -753,9 +771,9 @@ main {
   display: inline-flex;
   width: fit-content;
   padding: 0.32rem 0.55rem;
-  border: 1px solid rgba(69, 213, 255, 0.28);
+  border: 1px solid rgba(233, 161, 91, 0.28);
   border-radius: 999px;
-  background: rgba(69, 213, 255, 0.1);
+  background: rgba(233, 161, 91, 0.1);
 }
 
 .project-grid {
@@ -803,7 +821,7 @@ main {
   border-radius: 999px;
   background: rgba(148, 163, 184, 0.08);
   color: var(--soft);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.72rem;
 }
 
@@ -812,9 +830,9 @@ main {
   align-items: flex-start;
   gap: 0.65rem;
   padding: 0.85rem;
-  border: 1px solid rgba(52, 211, 153, 0.18);
+  border: 1px solid rgba(216, 120, 95, 0.18);
   border-radius: var(--radius);
-  background: rgba(52, 211, 153, 0.07);
+  background: rgba(216, 120, 95, 0.07);
 }
 
 .recruiter-value svg {
@@ -882,8 +900,8 @@ main {
 
 .category-filter button.active,
 .category-filter button:hover {
-  border-color: rgba(69, 213, 255, 0.5);
-  background: rgba(69, 213, 255, 0.13);
+  border-color: rgba(233, 161, 91, 0.5);
+  background: rgba(233, 161, 91, 0.13);
   color: white;
 }
 
@@ -1018,9 +1036,9 @@ main {
   gap: 0.5rem;
   min-height: 64px;
   padding: 0.85rem;
-  border: 1px solid rgba(69, 213, 255, 0.18);
+  border: 1px solid rgba(233, 161, 91, 0.18);
   border-radius: var(--radius);
-  background: rgba(69, 213, 255, 0.08);
+  background: rgba(233, 161, 91, 0.08);
   color: white;
   font-weight: 700;
 }
@@ -1072,7 +1090,7 @@ main {
 }
 
 .contact-links a:hover {
-  border-color: rgba(69, 213, 255, 0.42);
+  border-color: rgba(233, 161, 91, 0.42);
   color: white;
 }
 
@@ -1110,8 +1128,8 @@ main {
 .contact-form button {
   width: fit-content;
   border: 0;
-  background: linear-gradient(135deg, rgba(69, 213, 255, 0.96), rgba(52, 211, 153, 0.88));
-  color: #031018;
+  background: linear-gradient(135deg, var(--cyan), var(--teal));
+  color: #251914;
 }
 
 .contact-form button:disabled {
