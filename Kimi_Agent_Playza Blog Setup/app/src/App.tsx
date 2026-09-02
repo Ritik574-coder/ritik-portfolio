@@ -1,26 +1,19 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowUpRight,
-  Award,
   BadgeCheck,
   Blocks,
   BriefcaseBusiness,
-  CheckCircle2,
   Database,
   Download,
   FileText,
-  Filter,
-  GitFork,
   Github,
+  CheckCircle2,
   GitPullRequestArrow,
   Linkedin,
-  ImageOff,
   Mail,
   Menu,
-  Search,
-  ShieldCheck,
   Sparkles,
-  Star,
   TableProperties,
   Users,
   Workflow,
@@ -30,15 +23,14 @@ import "./index.css";
 import useLenis from "./hooks/useLenis";
 import { useGitHubData } from "./hooks/useGitHubData";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { CertificationSection } from "./components/CertificationSection";
+import { ProjectSections } from "./components/ProjectSection";
 import {
   about,
-  certificateUrl,
-  certifications,
   github,
   profile,
   projects,
   skills,
-  type ProjectCategory,
 } from "./data/portfolio";
 
 const navItems = [
@@ -51,29 +43,10 @@ const navItems = [
   ["Contact", "contact"],
 ];
 
-const categories: Array<"All" | ProjectCategory> = [
-  "All",
-  "Data Engineering",
-  "Business Intelligence",
-  "Learning",
-];
-
 const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
 const formatDate = (value?: string) =>
   value ? new Intl.DateTimeFormat("en", { month: "short", year: "numeric" }).format(new Date(value)) : "Not available";
-
-const Stars = ({ value }: { value: number }) => (
-  <div className="flex items-center gap-1" aria-label={`Complexity ${value} out of 5`}>
-    {Array.from({ length: 5 }).map((_, index) => (
-      <Star
-        key={index}
-        className={`h-4 w-4 ${index + 1 <= Math.round(value) ? "fill-cyan-300 text-cyan-300" : "text-white/20"}`}
-      />
-    ))}
-    <span className="ml-2 text-xs text-slate-400">{value.toFixed(value % 1 ? 1 : 0)}/5</span>
-  </div>
-);
 
 const SectionHeader = ({
   eyebrow,
@@ -90,106 +63,6 @@ const SectionHeader = ({
     {copy ? <p className="section-copy">{copy}</p> : null}
   </div>
 );
-
-const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[number]; compact?: boolean }) => {
-  const { data } = useGitHubData();
-  const repository = data.repositories[project.repository];
-  return (
-  <article className={`project-card ${compact ? "project-card-compact" : ""}`}>
-    <div className="project-card-top">
-      <div>
-        <span className="pill">{project.category}</span>
-        <h3>{project.title}</h3>
-        <p className="repo-name">{project.repository}</p>
-      </div>
-      <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.title} GitHub repository`}>
-        <ArrowUpRight className="h-5 w-5" />
-      </a>
-    </div>
-
-    {project.media?.screenshot ? (
-      <figure className="project-visual">
-        <img src={project.media.screenshot.src} alt={project.media.screenshot.alt} width="1024" height="576" loading="lazy" />
-        <figcaption>Verified project screenshot</figcaption>
-      </figure>
-    ) : (
-      <div className="project-visual-placeholder" role="status">
-        <ImageOff className="h-5 w-5" aria-hidden="true" />
-        <div><strong>Screenshot pending</strong><span>An owner-provided project capture will appear here.</span></div>
-      </div>
-    )}
-
-    <div className="project-grid">
-      <div>
-        <span>Business Problem</span>
-        <p>{project.businessProblem}</p>
-      </div>
-      <div>
-        <span>Solution Implemented</span>
-        <p>{project.solution}</p>
-      </div>
-    </div>
-
-    {!compact ? (
-      <>
-        <div className="architecture-list">
-          <span>Architecture</span>
-          {project.architecture.map((item) => (
-            <p key={item}>
-              <CheckCircle2 className="h-4 w-4" />
-              {item}
-            </p>
-          ))}
-          {project.media?.diagram ? (
-            <figure className="project-diagram">
-              <img src={project.media.diagram.src} alt={project.media.diagram.alt} width="1024" height="576" loading="lazy" />
-              <figcaption>Verified {project.media.diagram.type} diagram</figcaption>
-            </figure>
-          ) : (
-            <p className="diagram-placeholder"><ImageOff className="h-4 w-4" aria-hidden="true" />Architecture diagram not yet published.</p>
-          )}
-        </div>
-        <div className="achievement-list">
-          <span>Key Achievements</span>
-          <ul>
-            {project.achievements.map((achievement) => (
-              <li key={achievement}>{achievement}</li>
-            ))}
-          </ul>
-        </div>
-      </>
-    ) : null}
-
-    <div className="tech-list">
-      {project.technologies.map((tech) => (
-        <span key={tech}>{tech}</span>
-      ))}
-    </div>
-
-    {repository ? (
-      <p className="repository-meta" aria-label={`${project.repository} repository metadata`}>
-        <Star className="h-3.5 w-3.5" aria-hidden="true" /> {repository.stars}
-        <GitFork className="h-3.5 w-3.5" aria-hidden="true" /> {repository.forks}
-        <span>{repository.languages.slice(0, 3).join(" · ") || repository.language || "Language unavailable"}</span>
-        <span>Updated {formatDate(repository.updatedAt)}</span>
-      </p>
-    ) : null}
-
-    <div className="recruiter-value">
-      <ShieldCheck className="h-4 w-4" />
-      <p>{project.recruiterValue}</p>
-    </div>
-
-    <div className="project-footer">
-      <Stars value={project.complexity} />
-      <a href={project.href} target="_blank" rel="noreferrer">
-        GitHub
-        <Github className="h-4 w-4" />
-      </a>
-    </div>
-  </article>
-  );
-};
 
 function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -225,7 +98,7 @@ function Hero() {
           <Database className="h-4 w-4" />
           <span>Ritik Kumar</span>
         </button>
-        <button className="mobile-nav-toggle" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="primary-navigation">
+        <button className="mobile-nav-toggle" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label={menuOpen ? "Close primary navigation" : "Open primary navigation"}>
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           <span>Menu</span>
         </button>
@@ -358,161 +231,6 @@ function Skills() {
   );
 }
 
-function FeaturedProjects() {
-  return (
-    <section className="content-section" id="projects">
-      <SectionHeader
-        eyebrow="Featured Projects"
-        title="Data warehouses, dbt pipelines, data quality systems, and BI-ready models."
-        copy="Each card is written for recruiters and hiring managers: problem, solution, architecture, technology, outcomes, and role relevance."
-      />
-      <div className="featured-grid">
-        {projects.filter((project) => project.featured).map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ProjectsExplorer() {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<"All" | ProjectCategory>("All");
-
-  const filtered = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    return projects.filter((project) => {
-      const categoryMatch = category === "All" || project.category === category;
-      const queryMatch =
-        !normalized ||
-        [project.title, project.repository, project.businessProblem, project.solution, ...project.technologies]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalized);
-      return categoryMatch && queryMatch;
-    });
-  }, [category, query]);
-
-  return (
-    <section className="content-section explorer-section" id="all-projects">
-      <SectionHeader
-        eyebrow="All Projects"
-        title="Searchable project evidence by role relevance."
-        copy="Filter by Data Engineering, Business Intelligence, or Learning to match the role a recruiter is hiring for."
-      />
-      <div className="filter-bar">
-        <label>
-          <Search className="h-4 w-4" />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search dbt, SQL Server, Docker, Power BI..."
-          />
-        </label>
-        <div className="category-filter" aria-label="Project category filter">
-          <Filter className="h-4 w-4" />
-          {categories.map((item) => (
-            <button
-              key={item}
-              className={item === category ? "active" : ""}
-              onClick={() => setCategory(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="compact-project-grid">
-        {filtered.map((project) => (
-          <ProjectCard key={project.id} project={project} compact />
-        ))}
-      </div>
-      {!filtered.length ? <p className="empty-state" role="status">No projects match this search. Try a technology, repository, or another category.</p> : null}
-    </section>
-  );
-}
-
-function Certifications() {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
-  const categoriesForCertificates = ["All", ...Array.from(new Set(certifications.map((item) => item.category))).sort()];
-
-  const filtered = certifications.filter((certificate) => {
-    const normalized = query.trim().toLowerCase();
-    const categoryMatch = category === "All" || certificate.category === category;
-    const queryMatch =
-      !normalized ||
-      [certificate.name, certificate.issuer, certificate.category, ...certificate.skills]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized);
-    return categoryMatch && queryMatch;
-  });
-
-  return (
-    <section className="content-section" id="certifications">
-      <SectionHeader
-        eyebrow="Certifications"
-        title="Data engineering, dbt, SQL, Python, Docker, Linux, Spark, and governance credentials."
-        copy="All certificate PDFs from the repository are connected to view and download actions. Credential IDs and verification URLs can be added later where providers expose them."
-      />
-      <div className="filter-bar">
-        <label>
-          <Search className="h-4 w-4" />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search certificates by skill, issuer, or topic..."
-          />
-        </label>
-        <div className="category-filter certificate-filter" aria-label="Certification category filter">
-          {categoriesForCertificates.map((item) => (
-            <button
-              key={item}
-              className={item === category ? "active" : ""}
-              onClick={() => setCategory(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="cert-grid">
-        {filtered.map((certificate) => {
-          const url = certificateUrl(certificate.file);
-          return (
-            <article key={certificate.file} className="cert-card">
-              <div className="cert-icon">
-                <Award className="h-5 w-5" />
-              </div>
-              <div>
-                <span>{certificate.category}</span>
-                <h3>{certificate.name}</h3>
-                <p>{certificate.issuer}</p>
-                <small>Issued {certificate.issueDate}</small>
-              </div>
-              <div className="tech-list">
-                {certificate.skills.map((skill) => (
-                  <span key={skill}>{skill}</span>
-                ))}
-              </div>
-              <div className="cert-actions">
-                <a href={url} target="_blank" rel="noreferrer">
-                  View PDF
-                </a>
-                <a href={url} download>
-                  Download
-                </a>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-      {!filtered.length ? <p className="empty-state" role="status">No certifications match this search. Try a broader skill or category.</p> : null}
-    </section>
-  );
-}
-
 function Resume() {
   const { data: githubData } = useGitHubData();
   return (
@@ -525,6 +243,10 @@ function Resume() {
       <div className="resume-layout">
         <div className="resume-preview">
           <iframe src={profile.resumeUrl} title="Ritik Kumar Resume PDF preview" loading="lazy" />
+          <p className="resume-fallback">
+            PDF preview is hidden on small screens.{" "}
+            <a href={profile.resumeUrl} target="_blank" rel="noreferrer">View the resume</a> or download it below.
+          </p>
         </div>
         <aside className="resume-panel">
           <FileText className="h-8 w-8 text-cyan-300" />
@@ -699,9 +421,8 @@ function App() {
       <ErrorBoundary fallbackLabel="Navigation and introduction"><Hero /></ErrorBoundary>
       <ErrorBoundary fallbackLabel="About section"><About /></ErrorBoundary>
       <ErrorBoundary fallbackLabel="Skills section"><Skills /></ErrorBoundary>
-      <ErrorBoundary fallbackLabel="Featured projects"><FeaturedProjects /></ErrorBoundary>
-      <ErrorBoundary fallbackLabel="Project explorer"><ProjectsExplorer /></ErrorBoundary>
-      <ErrorBoundary fallbackLabel="Certifications"><Certifications /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Projects"><ProjectSections /></ErrorBoundary>
+      <ErrorBoundary fallbackLabel="Certifications"><CertificationSection /></ErrorBoundary>
       <ErrorBoundary fallbackLabel="Resume"><Resume /></ErrorBoundary>
       <ErrorBoundary fallbackLabel="GitHub proof"><GitHubSection /></ErrorBoundary>
       <ErrorBoundary fallbackLabel="Contact section"><Contact /></ErrorBoundary>

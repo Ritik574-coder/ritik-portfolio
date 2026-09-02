@@ -185,6 +185,17 @@ main {
   }
 }
 
+@keyframes section-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .nav-shell {
   position: fixed;
   z-index: 50;
@@ -239,7 +250,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -253,6 +264,7 @@ main {
 }
 
 .nav-shell nav button {
+  min-height: 44px;
   padding: 0.6rem 0.75rem;
   border-radius: 999px;
   background: transparent;
@@ -327,7 +339,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0.72rem 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -444,9 +456,43 @@ main {
   padding: clamp(5.5rem, 10vw, 9rem) clamp(1rem, 4vw, 2rem);
 }
 
+.content-section:nth-of-type(even) {
+  position: relative;
+}
+
+.content-section:nth-of-type(even)::before {
+  position: absolute;
+  top: 3rem;
+  left: clamp(1rem, 4vw, 2rem);
+  color: rgba(233, 161, 91, 0.42);
+  content: "✦";
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.5rem;
+}
+
 .section-heading {
   max-width: 880px;
   margin-bottom: 2.8rem;
+}
+
+.reveal-card {
+  animation: section-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-card:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.reveal-card:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.reveal-card:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.reveal-card:nth-child(5) {
+  animation-delay: 320ms;
 }
 
 .section-heading h2 {
@@ -683,8 +729,8 @@ main {
 
 .project-card-top a {
   display: inline-flex;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
@@ -888,7 +934,7 @@ main {
 }
 
 .category-filter button {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0.55rem 0.8rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -975,6 +1021,21 @@ main {
   width: 100%;
   height: 680px;
   border: 0;
+}
+
+.resume-fallback {
+  display: none;
+  margin: 0;
+  padding: 1rem;
+  color: var(--soft);
+  line-height: 1.6;
+}
+
+.resume-fallback a {
+  color: var(--cyan);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .resume-panel {
@@ -1113,7 +1174,7 @@ main {
 
 .contact-form input,
 .contact-form textarea {
-  min-height: 46px;
+  min-height: 48px;
   padding: 0.75rem 0.85rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1127,6 +1188,7 @@ main {
 
 .contact-form button {
   width: fit-content;
+  min-height: 44px;
   border: 0;
   background: linear-gradient(135deg, var(--cyan), var(--teal));
   color: #251914;
@@ -1286,6 +1348,11 @@ main {
     text-align: left;
   }
 
+  .nav-shell {
+    max-height: calc(100svh - 2rem);
+    overflow-y: auto;
+  }
+
   .hero-copy h1 {
     font-size: clamp(2.35rem, 15vw, 4rem);
   }
@@ -1306,6 +1373,18 @@ main {
 
   .cert-actions {
     grid-template-columns: 1fr;
+  }
+
+  .resume-preview {
+    min-height: 0;
+  }
+
+  .resume-preview iframe {
+    display: none;
+  }
+
+  .resume-fallback {
+    display: block;
   }
 }
 
