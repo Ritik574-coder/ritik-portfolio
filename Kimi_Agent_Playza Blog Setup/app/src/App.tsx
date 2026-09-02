@@ -109,7 +109,7 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
 
     {project.media?.screenshot ? (
       <figure className="project-visual">
-        <img src={project.media.screenshot.src} alt={project.media.screenshot.alt} loading="lazy" />
+        <img src={project.media.screenshot.src} alt={project.media.screenshot.alt} width="1024" height="576" loading="lazy" />
         <figcaption>Verified project screenshot</figcaption>
       </figure>
     ) : (
@@ -142,7 +142,7 @@ const ProjectCard = ({ project, compact = false }: { project: (typeof projects)[
           ))}
           {project.media?.diagram ? (
             <figure className="project-diagram">
-              <img src={project.media.diagram.src} alt={project.media.diagram.alt} loading="lazy" />
+              <img src={project.media.diagram.src} alt={project.media.diagram.alt} width="1024" height="576" loading="lazy" />
               <figcaption>Verified {project.media.diagram.type} diagram</figcaption>
             </figure>
           ) : (
@@ -271,7 +271,7 @@ function Hero() {
         </div>
 
         <aside className="hero-profile" aria-label="Profile summary">
-          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="992" height="1056" loading="eager" />
+          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="840" height="894" loading="eager" />
           <div className="hero-profile-copy">
             <p>{profile.name}</p>
             <h2>{profile.title}</h2>
@@ -311,7 +311,7 @@ function About() {
       />
       <div className="about-layout">
         <div className="about-photo">
-          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="992" height="1056" loading="lazy" />
+          <img src={profile.portrait} alt="Ritik Kumar, Data Engineer" width="840" height="894" loading="lazy" />
         </div>
         <div className="about-cards">
           {cards.map(([title, copy, Icon]) => {

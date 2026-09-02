@@ -52,7 +52,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/ritik-kumar-b81b32375/",
   tableau: "https://public.tableau.com/app/profile/ritik.sky",
   resumeUrl: `${import.meta.env.BASE_URL}assets/resume/ritik-resume.pdf`,
-  portrait: `${import.meta.env.BASE_URL}assets/profile/ritik-kumar-portrait.png`,
+  portrait: `${import.meta.env.BASE_URL}assets/profile/ritik-kumar-portrait.webp`,
   stats: [
     { label: "Public Repositories", value: "13+" },
     { label: "Commits", value: "480+" },
@@ -86,6 +86,8 @@ export const github = {
   ],
 };
 
+// Required for every project: id, title, category, repository, href, businessProblem,
+// solution, architecture, technologies, achievements, recruiterValue, and complexity.
 export const projects: Project[] = [
   {
     id: "dbt-analytics-engineering",
@@ -327,6 +329,7 @@ export const skills: Skill[] = [
   { name: "PySpark", group: "Data Platform", level: 68, evidence: "Data Ecosystem Platform includes PySpark and distributed processing learning assets." },
 ];
 
+// Required for every certificate: name, issuer, category, issueDate, file, and skills.
 export const certifications: Certification[] = [
   { name: "Advanced dbt", issuer: "DataCamp", category: "dbt", issueDate: "2026-06", file: "Advanced_dbt_certificate_data_camp.pdf", skills: ["dbt", "Analytics Engineering", "SQL"] },
   { name: "DataCamp dbt Certificate", issuer: "DataCamp", category: "dbt", issueDate: "2026-06", file: "Data_camp_dbt_certificate.pdf", skills: ["dbt", "Data Modeling"] },
