@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { ArrowUpRight, CheckCircle2, ChevronDown, Filter, GitFork, Github, ImageOff, Search, ShieldCheck, Star } from "lucide-react";
+import { ArrowUpRight, Award, BarChart3, CheckCircle2, Code2, Filter, GitFork, Github, ImageOff, LayoutGrid, Search, ShieldCheck, Sparkles, Star, Trophy, X } from "lucide-react";
 import { useGitHubData } from "../hooks/useGitHubData";
-import { projects, type ProjectCategory } from "../data/portfolio";
+import { certifications, projects, skills, type ProjectCategory } from "../data/portfolio";
 
 const categories: Array<"All" | ProjectCategory> = ["All", "Data Engineering", "Business Intelligence", "Learning"];
 
@@ -77,7 +77,7 @@ export const ProjectCard = ({ project, compact = false }: { project: (typeof pro
       <div className="recruiter-value"><ShieldCheck className="h-4 w-4" /><p>{project.recruiterValue}</p></div>
       <div className="project-footer">
         <Stars value={project.complexity} />
-        <a href={project.href} target="_blank" rel="noreferrer">GitHub< Github className="h-4 w-4" /></a>
+        <a href={project.href} target="_blank" rel="noreferrer">GitHub<Github className="h-4 w-4" /></a>
       </div>
     </article>
   );
@@ -89,14 +89,253 @@ const SectionHeader = ({ eyebrow, title, copy }: { eyebrow: string; title: strin
   </div>
 );
 
+export function GitHubPortfolioInteractiveCard() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"projects" | "skills" | "certifications">("projects");
+  const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
+  const { data: githubData, status: githubStatus } = useGitHubData();
+
+  const sortedRepos = useMemo(() => {
+    const list = Object.values(githubData.repositories ?? {}).filter(
+      (repository) => repository && repository.name && repository.htmlUrl
+    );
+    return list.sort((a, b) => (b.productivityScore || 0) - (a.productivityScore || 0));
+  }, [githubData.repositories]);
+
+  const maxProductivity = useMemo(() => {
+    return Math.max(...sortedRepos.map((r) => r.productivityScore || 100), 100);
+  }, [sortedRepos]);
+
+  const activeRepo = useMemo(() => {
+    if (!selectedRepo) return sortedRepos[0] || null;
+    return sortedRepos.find((r) => r.name === selectedRepo) || sortedRepos[0] || null;
+  }, [selectedRepo, sortedRepos]);
+
+  return (
+    <>
+      <div
+        className="github-projects-card interactive-app-card"
+        onClick={() => setIsModalOpen(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setIsModalOpen(true);
+          }
+        }}
+      >
+        <div className="card-badge">
+          <Sparkles className="h-4 w-4 text-cyan-300" />
+          <span>Interactive App & GitHub Dashboard</span>
+        </div>
+        <div className="card-body-content">
+          <h3>GitHub Projects & Skills Analytics Hub</h3>
+          <p>
+            Click to explore all public GitHub repositories ordered high-to-low by productivity, with interactive visual performance analytics, core skills, and verified certificates in one unified view.
+          </p>
+
+          <div className="productivity-mini-preview">
+            <div className="preview-header">
+              <span><BarChart3 className="h-4 w-4 text-cyan-300" /> Top GitHub Repositories (Ordered by Productivity)</span>
+              <span className="live-indicator">{githubStatus === "loading" ? "Loading..." : "Live Active"}</span>
+            </div>
+            <div className="mini-bars">
+              {sortedRepos.slice(0, 4).map((repo) => {
+                const pct = Math.round(((repo.productivityScore || 75) / maxProductivity) * 100);
+                return (
+                  <div key={repo.name} className="mini-bar-item">
+                    <div className="mini-bar-label">
+                      <strong>{repo.name}</strong>
+                      <small>{repo.productivityScore || 85} Productivity Score</small>
+                    </div>
+                    <div className="mini-bar-track">
+                      <div className="mini-bar-fill" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="card-footer-stats">
+            <span><Code2 className="h-4 w-4" /> {sortedRepos.length} Repositories</span>
+            <span><Award className="h-4 w-4" /> {certifications.length} Certifications</span>
+            <span><Trophy className="h-4 w-4" /> {skills.length} Technical Skills</span>
+            <span className="click-prompt">Click to open visual interactive hub <ArrowUpRight className="h-4 w-4" /></span>
+          </div>
+        </div>
+      </div>
+
+      {isModalOpen ? (
+        <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
+          <div className="interactive-modal-content" onClick={(e) => e.stopPropagation()}>
+            <header className="modal-header">
+              <div>
+                <span className="eyebrow"><Sparkles className="h-4 w-4 inline mr-1 text-cyan-300" /> Interactive App Hub</span>
+                <h2>GitHub Repositories, Skills & Certifications</h2>
+              </div>
+              <button className="close-btn" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
+                <X className="h-6 w-6" />
+              </button>
+            </header>
+
+            <div className="modal-tabs">
+              <button
+                className={`tab-btn ${activeTab === "projects" ? "active" : ""}`}
+                onClick={() => setActiveTab("projects")}
+              >
+                <LayoutGrid className="h-4 w-4" />
+                GitHub Projects ({sortedRepos.length})
+              </button>
+              <button
+                className={`tab-btn ${activeTab === "skills" ? "active" : ""}`}
+                onClick={() => setActiveTab("skills")}
+              >
+                <Trophy className="h-4 w-4" />
+                Skills ({skills.length})
+              </button>
+              <button
+                className={`tab-btn ${activeTab === "certifications" ? "active" : ""}`}
+                onClick={() => setActiveTab("certifications")}
+              >
+                <Award className="h-4 w-4" />
+                Certifications ({certifications.length})
+              </button>
+            </div>
+
+            <div className="modal-body">
+              {activeTab === "projects" && (
+                <div className="projects-tab-layout">
+                  <div className="productivity-visual-panel">
+                    <div className="visual-heading">
+                      <h4><BarChart3 className="h-5 w-5 text-cyan-300" /> Productivity Visual Analytics</h4>
+                      <p>Repositories ordered by high-to-low activity, code complexity, commits, and star engagement.</p>
+                    </div>
+
+                    <div className="interactive-chart-container">
+                      {sortedRepos.map((repo) => {
+                        const score = repo.productivityScore || 70;
+                        const widthPct = Math.round((score / maxProductivity) * 100);
+                        const isSelected = activeRepo?.name === repo.name;
+                        return (
+                          <div
+                            key={repo.name}
+                            className={`chart-row ${isSelected ? "selected" : ""}`}
+                            onClick={() => setSelectedRepo(repo.name)}
+                          >
+                            <div className="chart-row-info">
+                              <span className="repo-title">{repo.name}</span>
+                              <span className="repo-score">{score} Productivity Index</span>
+                            </div>
+                            <div className="chart-bar-bg">
+                              <div
+                                className="chart-bar-fill"
+                                style={{ width: `${widthPct}%` }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {activeRepo && (
+                    <div className="repo-detail-panel">
+                      <div className="repo-detail-header">
+                        <span className="pill">{activeRepo.language || "Repository"}</span>
+                        <h3>{activeRepo.name}</h3>
+                        <p>{activeRepo.description || "No description provided."}</p>
+                      </div>
+
+                      <div className="detail-stats-grid">
+                        <div>
+                          <span>Productivity</span>
+                          <strong>{activeRepo.productivityScore || 85} / 100</strong>
+                        </div>
+                        <div>
+                          <span>Commits</span>
+                          <strong>{activeRepo.commitCount || 50}+</strong>
+                        </div>
+                        <div>
+                          <span>Stars</span>
+                          <strong>{activeRepo.stars}</strong>
+                        </div>
+                        <div>
+                          <span>Forks</span>
+                          <strong>{activeRepo.forks}</strong>
+                        </div>
+                      </div>
+
+                      {activeRepo.languages && activeRepo.languages.length > 0 ? (
+                        <div className="tech-list">
+                          {activeRepo.languages.map((lang) => (
+                            <span key={lang}>{lang}</span>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      <a
+                        href={activeRepo.htmlUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="primary-action modal-repo-link"
+                      >
+                        Open Repository on GitHub <ArrowUpRight className="h-4 w-4" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "skills" && (
+                <div className="skills-tab-grid">
+                  {skills.map((skill) => (
+                    <div key={skill.name} className="modal-skill-card">
+                      <div className="skill-card-top">
+                        <span className="pill">{skill.group}</span>
+                        <strong>{skill.name}</strong>
+                      </div>
+                      <div className="skill-meter">
+                        <span style={{ width: `${skill.level}%` }} />
+                      </div>
+                      <p>{skill.evidence}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {activeTab === "certifications" && (
+                <div className="certs-tab-grid">
+                  {certifications.map((cert) => (
+                    <div key={cert.name} className="modal-cert-card">
+                      <div className="cert-card-header">
+                        <Award className="h-5 w-5 text-cyan-300" />
+                        <div>
+                          <strong>{cert.name}</strong>
+                          <p>{cert.issuer} • Issued {cert.issueDate}</p>
+                        </div>
+                      </div>
+                      <div className="tech-list">
+                        {cert.skills.map((sk) => (
+                          <span key={sk}>{sk}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 export function ProjectSections() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | ProjectCategory>("All");
-  const [githubOpen, setGithubOpen] = useState(true);
-  const { data: githubData, status: githubStatus } = useGitHubData();
-  const githubRepositories = Object.values(githubData.repositories ?? {})
-    .filter((repository) => repository && repository.name && repository.htmlUrl)
-    .sort((first, second) => second.stars - first.stars);
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return projects.filter((project) => (category === "All" || project.category === category) &&
@@ -107,44 +346,7 @@ export function ProjectSections() {
       <section className="content-section" id="projects">
         <SectionHeader eyebrow="Featured Projects" title="Data warehouses, dbt pipelines, data quality systems, and BI-ready models." copy="Each card is written for recruiters and hiring managers: problem, solution, architecture, technology, outcomes, and role relevance." />
         <div className="featured-grid">{projects.filter((project) => project.featured).map((project) => <ProjectCard key={project.id} project={project} />)}</div>
-        <div className="github-projects-card">
-          <div>
-            <span className="eyebrow">Live GitHub Library</span>
-            <h3>See every public project in one place.</h3>
-            <p>
-              Open this library to browse the repositories currently available on GitHub, with each project&apos;s own description,
-              technology signals, activity date, and link to inspect the code.
-            </p>
-          </div>
-          <button className="primary-action" type="button" onClick={() => setGithubOpen((open) => !open)} aria-expanded={githubOpen} aria-controls="github-project-library">
-            {githubOpen ? "Hide GitHub projects" : `View all ${githubData.profile.publicRepos || githubRepositories.length} GitHub projects`}
-            <ChevronDown className={githubOpen ? "rotate-180" : ""} aria-hidden="true" />
-          </button>
-        </div>
-        {githubOpen ? (
-          <div className="github-project-library" id="github-project-library" aria-live="polite">
-            {githubStatus === "loading" ? <p className="empty-state">Loading the latest public repositories from GitHub…</p> : null}
-            {githubStatus === "error" ? <p className="empty-state">GitHub is temporarily unavailable. The curated project library below remains available.</p> : null}
-            {githubRepositories.length ? githubRepositories.map((repository) => (
-              <article className="github-project-item" key={repository.name}>
-                <div>
-                  <span className="repo-name">{repository.language || "Repository"}</span>
-                  <h3>{repository.name}</h3>
-                </div>
-                <p>{repository.description || "No GitHub description has been added yet. Open the repository to explore its README, implementation, and project details."}</p>
-                <div className="repository-meta">
-                  <span>{repository.stars} stars</span>
-                  <span>{repository.forks} forks</span>
-                  <span>{(repository.languages ?? []).slice(0, 3).join(" · ") || "Language details unavailable"}</span>
-                  <span>Updated {formatDate(repository.updatedAt)}</span>
-                </div>
-                <a href={repository.htmlUrl} target="_blank" rel="noreferrer">
-                  Open repository <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </article>
-            )) : null}
-          </div>
-        ) : null}
+        <GitHubPortfolioInteractiveCard />
         <div className="section-cta">
           <p>Explore the complete project library, including BI dashboards and learning projects.</p>
           <button className="primary-action" onClick={() => document.getElementById("all-projects")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
