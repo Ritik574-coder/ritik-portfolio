@@ -92,7 +92,7 @@ const SectionHeader = ({ eyebrow, title, copy }: { eyebrow: string; title: strin
 export function ProjectSections() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"All" | ProjectCategory>("All");
-  const [githubOpen, setGithubOpen] = useState(false);
+  const [githubOpen, setGithubOpen] = useState(true);
   const { data: githubData, status: githubStatus } = useGitHubData();
   const githubRepositories = Object.values(githubData.repositories).sort((first, second) => second.stars - first.stars);
   const filtered = useMemo(() => {
@@ -123,7 +123,7 @@ export function ProjectSections() {
           <div className="github-project-library" id="github-project-library" aria-live="polite">
             {githubStatus === "loading" ? <p className="empty-state">Loading the latest public repositories from GitHub…</p> : null}
             {githubStatus === "error" ? <p className="empty-state">GitHub is temporarily unavailable. The curated project library below remains available.</p> : null}
-            {githubStatus !== "error" && githubRepositories.length ? githubRepositories.map((repository) => (
+            {githubRepositories.length ? githubRepositories.map((repository) => (
               <article className="github-project-item" key={repository.name}>
                 <div>
                   <span className="repo-name">{repository.language || "Repository"}</span>
