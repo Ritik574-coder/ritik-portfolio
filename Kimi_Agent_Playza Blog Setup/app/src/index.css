@@ -511,6 +511,23 @@ main {
   line-height: 1.75;
 }
 
+.section-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(233, 161, 91, 0.06);
+}
+
+.section-cta p {
+  margin: 0;
+  color: var(--soft);
+}
+
 .about-layout {
   display: grid;
   grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
@@ -1373,6 +1390,11 @@ main {
 
   .cert-actions {
     grid-template-columns: 1fr;
+  }
+
+  .section-cta {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .resume-preview {

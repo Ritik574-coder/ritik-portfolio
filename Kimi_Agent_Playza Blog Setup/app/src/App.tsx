@@ -37,6 +37,7 @@ const navItems = [
   ["About", "about"],
   ["Skills", "skills"],
   ["Projects", "projects"],
+  ["All Projects", "all-projects"],
   ["Certifications", "certifications"],
   ["Resume", "resume"],
   ["GitHub", "github"],

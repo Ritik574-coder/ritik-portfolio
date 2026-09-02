@@ -102,9 +102,16 @@ export function ProjectSections() {
       <section className="content-section" id="projects">
         <SectionHeader eyebrow="Featured Projects" title="Data warehouses, dbt pipelines, data quality systems, and BI-ready models." copy="Each card is written for recruiters and hiring managers: problem, solution, architecture, technology, outcomes, and role relevance." />
         <div className="featured-grid">{projects.filter((project) => project.featured).map((project) => <ProjectCard key={project.id} project={project} />)}</div>
+        <div className="section-cta">
+          <p>Explore the complete project library, including BI dashboards and learning projects.</p>
+          <button className="primary-action" onClick={() => document.getElementById("all-projects")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+            View all {projects.length} projects
+            <ArrowUpRight className="h-4 w-4" />
+          </button>
+        </div>
       </section>
       <section className="content-section explorer-section" id="all-projects">
-        <SectionHeader eyebrow="All Projects" title="Searchable project evidence by role relevance." copy="Filter by Data Engineering, Business Intelligence, or Learning to match the role a recruiter is hiring for." />
+        <SectionHeader eyebrow="Complete Project Library" title="Every project, organized for fast discovery." copy="Search all portfolio projects and filter by Data Engineering, Business Intelligence, or Learning to match the role a recruiter is hiring for." />
         <div className="filter-bar">
           <label><Search className="h-4 w-4" aria-hidden="true" /><input aria-label="Search projects" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search dbt, SQL Server, Docker, Power BI..." /></label>
           <div className="category-filter" aria-label="Project category filter"><Filter className="h-4 w-4" aria-hidden="true" />{categories.map((item) => <button key={item} className={item === category ? "active" : ""} onClick={() => setCategory(item)}>{item}</button>)}</div>
