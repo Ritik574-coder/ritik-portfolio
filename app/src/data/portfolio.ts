@@ -1,4 +1,9 @@
-export type ProjectCategory = "Data Engineering" | "Business Intelligence" | "Learning";
+export type ProjectCategory =
+  | "Data Engineering"
+  | "AI & ML Engineering"
+  | "Business Intelligence"
+  | "Data Platform"
+  | "Learning";
 
 export interface Project {
   id: string;
@@ -41,9 +46,9 @@ const certificatePath = (file: string) =>
 
 export const profile = {
   name: "Ritik Kumar",
-  title: "Data Engineer",
+  title: "Data Engineer & AI/ML Specialist",
   headline:
-    "Building scalable, analytics-ready data systems from raw ingestion to business-ready data products.",
+    "Building scalable, analytics-ready data systems and intelligent AI/ML pipelines from raw ingestion to enterprise data products.",
   location: "Patna, Bihar, India",
   email: "ritik74820@gmail.com",
   discord: "ritik_sky",
@@ -54,10 +59,10 @@ export const profile = {
   resumeUrl: `${import.meta.env.BASE_URL}assets/resume/ritik-resume.pdf`,
   portrait: `${import.meta.env.BASE_URL}assets/profile/ritik-kumar-portrait.webp`,
   stats: [
-    { label: "Public Repositories", value: "13+" },
-    { label: "Commits", value: "480+" },
-    { label: "Projects", value: "12+" },
-    { label: "Open Source", value: "Contributor" },
+    { label: "Public Repositories", value: "20+" },
+    { label: "Commits", value: "1,900+" },
+    { label: "Projects", value: "16+" },
+    { label: "Open Source", value: "Active Contributor" },
   ],
 };
 
@@ -71,24 +76,162 @@ export const about = {
   mindset:
     "My engineering bias is toward clear layer boundaries, defensive SQL, auditable transformations, documented business rules, and simple deployment paths that recruiters and hiring managers can verify quickly.",
   openSource:
-    "GitHub activity includes 13+ public repositories, 480+ commits, reusable project documentation, issue/PR templates, GitHub Actions workflows, and community-facing dbt/data warehouse learning assets.",
+    "GitHub activity includes 20+ public repositories, 1,900+ commits, reusable project documentation, issue/PR templates, GitHub Actions workflows, and community-facing dbt/data warehouse/AI learning assets.",
 };
 
 export const github = {
   username: "Ritik574-coder",
-  repositories: "13+",
+  repositories: "20+",
+  commits: "1,900+",
   achievements: ["Pull Shark x3", "Pair Extraordinaire x3", "Quickdraw", "YOLO"],
   highlights: [
+    "Snowflake Data Engineering covering RBAC, virtual warehouses, and Star Schema modeling",
+    "AI-assisted content pipelines with human-in-the-loop review and Cloudflare D1 storage",
+    "AWS Data Engineering Lab with automated Boto3 pipelines and S3/Glue lakehouses",
     "dbt CI/CD with lint, parse, compile, run, test, deploy, and docs workflows",
-    "SQL Server data warehouses using Bronze, Silver, and Gold schemas",
-    "Retail warehouse project with per-entity documentation and defensive data quality rules",
-    "BI repository covering HR, sales, economy, ATM, and data job analytics",
+    "SQL Server data warehouses using Bronze, Silver, and Gold Medallion schemas",
+    "Knowledge graph data modeling linking interconnected nodes, entities, and provenance",
   ],
 };
 
 // Required for every project: id, title, category, repository, href, businessProblem,
 // solution, architecture, technologies, achievements, recruiterValue, and complexity.
 export const projects: Project[] = [
+  {
+    id: "snowflake-data-engineering",
+    title: "Snowflake Cloud Data Engineering",
+    category: "Data Engineering",
+    repository: "Snowflake-Data-Engineering-Project",
+    href: "https://github.com/Ritik574-coder/Snowflake-Data-Engineering-Project",
+    businessProblem:
+      "Enterprise analytics demanded modern cloud data warehousing on Snowflake with scalable multi-cluster compute separation, secure role-based access control, and automated dimensional modeling.",
+    solution:
+      "Engineered an end-to-end Snowflake data warehouse featuring structured staging layers, dimensional Star Schema marts, data quality profiling, and automated Python-driven loading pipelines.",
+    architecture: [
+      "Snowflake Virtual Warehouses with compute/storage separation",
+      "Staging, Silver conformance, and Gold Star Schema marts",
+      "Role-Based Access Control (RBAC) and security hierarchy",
+      "Snowflake Tasks, Streams, and automated Python ingestion",
+    ],
+    technologies: ["Snowflake", "SQL", "Python", "Dimensional Modeling", "Cloud Data Warehouse"],
+    achievements: [
+      "Configured multi-cluster compute scaling and warehouse cost governance",
+      "Modeled dimensional fact and dimension tables with role segregation",
+      "Automated batch data quality checks and loading pipelines",
+    ],
+    recruiterValue:
+      "Proves hands-on competence with Snowflake, one of the most widely adopted enterprise cloud data warehouse platforms.",
+    complexity: 4.8,
+    featured: true,
+  },
+  {
+    id: "contentflow-ai",
+    title: "ContentFlow AI & Agentic Pipelines",
+    category: "AI & ML Engineering",
+    repository: "contentflow-ai",
+    href: "https://github.com/Ritik574-coder/contentflow-ai",
+    businessProblem:
+      "Manual content generation and publishing was fragmented, prone to hallucination, and lacked verification gates for human quality review.",
+    solution:
+      "Built an AI-assisted pipeline orchestrating multi-platform content publishing with human-in-the-loop approval, automated prompt chains, and serverless Cloudflare D1 relational storage.",
+    architecture: [
+      "LLM Prompt & Agent Orchestration layer",
+      "Human-in-the-loop Approval & Gatekeeping Workflow",
+      "Cloudflare Workers with D1 Serverless SQL storage",
+      "Multi-platform automated REST API publishing",
+    ],
+    technologies: ["AI Agents", "LLM Workflows", "TypeScript", "Cloudflare D1", "REST APIs"],
+    achievements: [
+      "Implemented automated prompt workflows with JSON schema enforcement",
+      "Built an interactive approval gatekeeper preventing unreviewed publication",
+      "Integrated low-latency D1 serverless relational data persistence",
+    ],
+    recruiterValue:
+      "Demonstrates modern AI/ML Engineering capability: combining LLM orchestration with structured databases, state machines, and production guardrails.",
+    complexity: 4.5,
+    featured: true,
+  },
+  {
+    id: "aws-data-engineering-lab",
+    title: "AWS Data Engineering Lab",
+    category: "Data Engineering",
+    repository: "aws-data-engineering-lab",
+    href: "https://github.com/Ritik574-coder/aws-data-engineering-lab",
+    businessProblem:
+      "Production cloud data pipelines require mastery of AWS services, IAM security policies, infrastructure automation, and cost-effective lakehouse query patterns.",
+    solution:
+      "Developed a comprehensive AWS Data Engineering lab implementing Boto3 scripts, S3 data lake partitioning, Glue catalog crawlers, and serverless Amazon Athena SQL queries.",
+    architecture: [
+      "AWS S3 Data Lake Partitioning & Lifecycle Rules",
+      "AWS Glue Data Catalog & Automated Crawlers",
+      "Amazon Athena Serverless SQL Analytics",
+      "Boto3 Python Ingestion & Orchestration",
+      "IAM Least-Privilege Security Policies",
+    ],
+    technologies: ["AWS S3", "AWS Glue", "Amazon Athena", "Boto3", "Python", "AWS CLI"],
+    achievements: [
+      "Engineered automated S3 partition management with Boto3",
+      "Configured Glue crawler schemas for zero-server Athena SQL queries",
+      "Implemented cloud security best practices with dedicated IAM roles",
+    ],
+    recruiterValue:
+      "Proves hands-on AWS cloud data capabilities for teams building and deploying data lakehouses in AWS.",
+    complexity: 4.5,
+    featured: true,
+  },
+  {
+    id: "great-minds-knowledge-graph",
+    title: "Knowledge Graph & Graph Modeling",
+    category: "AI & ML Engineering",
+    repository: "Great-Minds-Knowledge-Graph",
+    href: "https://github.com/Ritik574-coder/Great-Minds-Knowledge-Graph",
+    businessProblem:
+      "Interconnected relationships between historical decisions, lessons, technological discoveries, and systems cannot be modeled effectively in flat tabular schemas.",
+    solution:
+      "Created an interactive graph-based data system modeling entities, relationships, provenance, and network connections with visual dynamic exploration.",
+    architecture: [
+      "Graph Data Modeling (Nodes & Directed Edges)",
+      "Entity-Relationship Provenance Engine",
+      "Interactive Dynamic Graph Canvas & Traversal",
+      "Multi-dimensional Filtering & Search Interface",
+    ],
+    technologies: ["Graph Data", "JavaScript", "Knowledge Graphs", "Network Analysis"],
+    achievements: [
+      "Modeled multi-hop interconnected graph nodes with semantic relationships",
+      "Built dynamic visual exploration with real-time node traversal",
+      "Structured provenance and source verification metadata for AI RAG readiness",
+    ],
+    recruiterValue:
+      "Demonstrates advanced knowledge graph data modeling, increasingly essential for Graph RAG, agentic context, and semantic architectures.",
+    complexity: 4.2,
+    featured: true,
+  },
+  {
+    id: "logging-for-data-engineers",
+    title: "Logging & Observability for Data Pipelines",
+    category: "Data Platform",
+    repository: "Logging-For-Data-Engineers",
+    href: "https://github.com/Ritik574-coder/Logging-For-Data-Engineers",
+    businessProblem:
+      "Silent pipeline failures, unmonitored data drift, and missing runtime telemetry in batch ETL jobs lead to downstream corrupt data marts.",
+    solution:
+      "Architected structured JSON logging, metrics collection, and alerting patterns for data engineering jobs with Docker and Python.",
+    architecture: [
+      "Structured JSON Log Formatting & Schema",
+      "Execution Timing & Process Metric Counters",
+      "Pipeline Health Checks & Anomaly Alarms",
+      "Dockerized Telemetry & Test Environments",
+    ],
+    technologies: ["Python", "Structured Logging", "Docker", "Shell", "Observability"],
+    achievements: [
+      "Standardized data pipeline logging schema across batch processes",
+      "Captured contextual telemetry (row counts, duration, error trace)",
+      "Automated health check verification for reliable alerting",
+    ],
+    recruiterValue:
+      "Shows production maturity: proving that pipelines are designed to be observable, testable, and maintainable in enterprise environments.",
+    complexity: 3.8,
+  },
   {
     id: "dbt-analytics-engineering",
     title: "dbt Analytics Engineering",
@@ -316,8 +459,12 @@ export const projects: Project[] = [
 export const skills: Skill[] = [
   { name: "Data Warehousing", group: "Data Engineering", level: 95, evidence: "SQL Server and Retail Medallion warehouses with Bronze, Silver, and Gold layers." },
   { name: "SQL Server / T-SQL", group: "Data Engineering", level: 95, evidence: "Stored procedures, DDL, defensive transformations, Star Schema views, and quality checks." },
+  { name: "Snowflake Data Cloud", group: "Data Platform", level: 90, evidence: "End-to-end Snowflake data warehouse covering RBAC, compute scaling, and dimensional marts." },
   { name: "dbt", group: "Analytics Engineering", level: 92, evidence: "CI/CD dbt project, snapshots, tests, macros, seeds, docs, and 169-commit learning repository." },
   { name: "Data Modeling", group: "Analytics Engineering", level: 90, evidence: "Star Schema marts, facts, dimensions, SCD Type 2, and Gold-layer modeling." },
+  { name: "AWS Cloud (S3, Glue, Athena)", group: "Data Platform", level: 86, evidence: "Hands-on AWS Data Engineering Lab with automated Boto3 pipelines and S3 data lakes." },
+  { name: "AI & LLM Workflows", group: "Analytics Engineering", level: 84, evidence: "ContentFlow AI agentic pipelines with human-in-the-loop review and Cloudflare D1 storage." },
+  { name: "Knowledge Graphs", group: "Analytics Engineering", level: 80, evidence: "Great Minds Knowledge Graph with dynamic graph modeling and provenance verification." },
   { name: "Data Quality", group: "Data Engineering", level: 90, evidence: "TRY_CONVERT, CASE rules, deduplication, accepted values, and per-entity validation docs." },
   { name: "ETL / ELT", group: "Data Engineering", level: 88, evidence: "CSV ingestion, T-SQL ETL, dbt ELT, full refresh and incremental patterns." },
   { name: "GitHub Actions / CI/CD", group: "Data Platform", level: 84, evidence: "dbt CI, deployment, docs workflows, PR automation, and GitHub Pages publication." },

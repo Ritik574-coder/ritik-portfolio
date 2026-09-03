@@ -20,7 +20,14 @@ export function ProjectsDetailView({ onBack }: ProjectsDetailViewProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeCaseStudy, setActiveCaseStudy] = useState<Project | null>(null);
 
-  const categories = ["All", "Data Engineering", "Business Intelligence", "Learning"];
+  const categories = [
+    "All",
+    "Data Engineering",
+    "AI & ML Engineering",
+    "Data Platform",
+    "Business Intelligence",
+    "Learning",
+  ];
 
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {

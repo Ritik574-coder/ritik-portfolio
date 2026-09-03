@@ -12,6 +12,7 @@ export interface GitHubProfile {
   following: number;
   publicRepos: number;
   updatedAt: string;
+  commits: string;
 }
 
 export interface GitHubRepository {
@@ -161,17 +162,20 @@ const defaultRepositories: GitHubRepository[] = [
 const fallbackData: GitHubData = {
   profile: {
     avatarUrl: "",
-    bio: "Data Engineer focused on SQL Server data warehousing, dbt, ETL pipelines, and BI analytics.",
-    followers: 18,
-    following: 12,
-    publicRepos: defaultRepositories.length,
+    bio: "Hello, I’m Ritik — a Data Engineer & AI/ML Specialist focused on building scalable ETL/ELT pipelines and modern cloud data architectures.",
+    followers: 184,
+    following: 113,
+    publicRepos: 20,
     updatedAt: new Date().toISOString(),
+    commits: "1,900+",
   },
   repositories: Object.fromEntries(defaultRepositories.map((repo) => [repo.name, repo])),
   recentActivity: [
     { type: "Push", repository: "ritik-portfolio", createdAt: new Date().toISOString() },
-    { type: "Push", repository: "dbt-analytics-engineering", createdAt: new Date(Date.now() - 86400000).toISOString() },
-    { type: "PullRequest", repository: "Medallion-Data-Warehouse", createdAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+    { type: "Push", repository: "Snowflake-Data-Engineering-Project", createdAt: new Date(Date.now() - 86400000).toISOString() },
+    { type: "Push", repository: "contentflow-ai", createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { type: "Push", repository: "dbt-analytics-engineering", createdAt: new Date(Date.now() - 86400000 * 3).toISOString() },
+    { type: "PullRequest", repository: "Medallion-Data-Warehouse", createdAt: new Date(Date.now() - 86400000 * 4).toISOString() },
   ],
   isFallback: true,
 };
@@ -282,11 +286,12 @@ const fetchFreshGitHubData = async (): Promise<GitHubData> => {
   const value: GitHubData = {
     profile: {
       avatarUrl: user.avatar_url || "",
-      bio: user.bio || "Data Engineer focused on SQL Server data warehousing, dbt, ETL pipelines, and BI analytics.",
-      followers: user.followers || 18,
-      following: user.following || 12,
-      publicRepos: user.public_repos || defaultRepositories.length,
+      bio: user.bio || "Data Engineer & AI/ML Specialist focused on building scalable ETL/ELT pipelines and modern cloud architectures.",
+      followers: user.followers || 184,
+      following: user.following || 113,
+      publicRepos: user.public_repos || 20,
       updatedAt: user.updated_at || new Date().toISOString(),
+      commits: "1,900+",
     },
     repositories: enrichedRepositories,
     recentActivity: events.length ? events.slice(0, 5).map((event) => ({
