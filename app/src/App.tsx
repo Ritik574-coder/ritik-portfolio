@@ -13,7 +13,7 @@ import { CertificationsDetailView } from "./components/details/CertificationsDet
 import { SkillsDetailView } from "./components/details/SkillsDetailView";
 
 export default function App() {
-  useLenis();
+  const { stop: stopLenis, start: startLenis } = useLenis();
   const [activeCategory, setActiveCategory] = useState<"projects" | "certificates" | "skills" | null>(null);
 
   // Sync with URL Hash for shareable links & browser history
@@ -22,25 +22,29 @@ export default function App() {
       const hash = window.location.hash.replace("#", "");
       if (hash === "projects" || hash === "certificates" || hash === "skills") {
         setActiveCategory(hash);
+        stopLenis();
       } else if (!hash) {
         setActiveCategory(null);
+        startLenis();
       }
     };
 
     handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  }, [stopLenis, startLenis]);
 
   // Update hash when category opens or closes
   const handleOpenCategory = (category: "projects" | "certificates" | "skills") => {
     window.location.hash = category;
     setActiveCategory(category);
+    stopLenis(); // Pause Lenis so overlay can scroll natively
   };
 
   const handleCloseCategory = () => {
     window.history.pushState(null, "", window.location.pathname);
     setActiveCategory(null);
+    startLenis(); // Resume Lenis smooth scrolling on the hub
   };
 
   // Keyboard navigation: Escape key closes active detail view
