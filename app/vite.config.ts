@@ -19,6 +19,16 @@ export default defineConfig({
       webp: { quality: 82 },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          motion: ["framer-motion", "gsap", "lenis"],
+          icons: ["lucide-react"],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

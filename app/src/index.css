@@ -1,28 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   color-scheme: dark;
-  --bg: #1c1715;
-  --panel: rgba(49, 38, 32, 0.82);
-  --panel-strong: rgba(39, 29, 25, 0.96);
-  --line: rgba(226, 198, 171, 0.2);
-  --text: #f6eee6;
-  --muted: #bca99b;
-  --soft: #dfd0c3;
-  --cyan: #e9a15b;
-  --teal: #d8785f;
-  --blue: #c5a98e;
-  --amber: #f2c078;
-  --danger: #e4867b;
-  --radius: 10px;
+  --bg: #04070d;
+  --surface: #09111f;
+  --panel: rgba(14, 23, 38, 0.75);
+  --panel-strong: rgba(9, 17, 31, 0.95);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-cyan: rgba(0, 245, 255, 0.22);
+  --text: #f0f4fc;
+  --muted: #8896ab;
+  --soft: #cbd5e1;
+  --cyan: #00f5ff;
+  --cyan-hover: #38f8ff;
+  --teal: #00d2b4;
+  --blue: #38bdf8;
+  --amber: #fbbf24;
+  --danger: #f87171;
+  --radius: 14px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(0, 245, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #04070d;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 245, 255, 0.4);
 }
 
 html {
@@ -33,12 +55,13 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 18% 10%, rgba(233, 161, 91, 0.14), transparent 28rem),
-    radial-gradient(circle at 80% 4%, rgba(216, 120, 95, 0.1), transparent 30rem),
-    linear-gradient(180deg, #1c1715 0%, #241b18 45%, #1c1715 100%);
+  background-color: #04070d;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 245, 255, 0.12), transparent 70%),
+    radial-gradient(circle at 90% 80%, rgba(0, 210, 180, 0.06), transparent 50%),
+    linear-gradient(180deg, #04070d 0%, #080f1a 50%, #04070d 100%);
   color: var(--text);
-  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   overflow-x: hidden;
 }
 

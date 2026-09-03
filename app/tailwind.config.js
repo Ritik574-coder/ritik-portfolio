@@ -39,20 +39,28 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         // Custom theme colors
+        cyber: {
+          bg: '#04070d',
+          surface: '#09111f',
+          card: '#0e1726',
+          cyan: '#00f5ff',
+          teal: '#00d2b4',
+          muted: '#8492a6',
+        },
         void: {
-          black: '#1c1715',
-          dark: '#241b18',
+          black: '#04070d',
+          dark: '#09111f',
         },
         neon: {
-          cyan: '#e9a15b',
-          blue: '#d8785f',
-          soft: '#dfd0c3',
+          cyan: '#00f5ff',
+          blue: '#00b4d8',
+          soft: '#90e0ef',
         },
       },
       fontFamily: {
-        display: ['Fraunces', 'Georgia', 'serif'],
-        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'SF Mono', 'Monaco', 'monospace'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'SF Mono', 'Monaco', 'monospace'],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
