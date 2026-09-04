@@ -17,17 +17,18 @@ export function CategoryCards({ onSelectCategory }: CategoryCardsProps) {
 
   return (
     <section id="category-cards" className="relative max-w-6xl mx-auto px-4 sm:px-6 py-8 z-10">
-      <div className="flex flex-col gap-2 mb-6">
+      <div className="flex flex-col gap-2 mb-8">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            <span>Interactive Categories</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-400/20 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f5ff]"></span>
+            <span>Interactive Portfolio Modules</span>
           </div>
-          <span className="text-xs font-mono text-slate-400 hidden sm:inline-block">
-            Click any card to expand full interactive view
+          <span className="text-xs font-mono text-slate-400 hidden sm:flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+            Click any card to launch interactive deep-dive modal
           </span>
         </div>
-        <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+        <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400 tracking-tight">
           Explore Portfolio Dimensions
         </h2>
       </div>

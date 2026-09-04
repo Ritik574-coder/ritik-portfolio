@@ -50,6 +50,7 @@ export function CertificationsDetailView({ onBack }: CertificationsDetailViewPro
   return (
     <motion.div
       layoutId="card-container-certificates"
+      data-lenis-prevent
       className="fixed inset-0 z-50 overflow-y-auto bg-void-black/95 backdrop-blur-3xl text-slate-100 flex flex-col"
       transition={{ type: "spring", stiffness: 260, damping: 28 }}
     >
